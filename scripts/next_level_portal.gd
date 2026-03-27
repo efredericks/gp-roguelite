@@ -18,10 +18,12 @@ func _on_defeat_enemy(enemy: Enemy):
 		return
 
 	visible = true
-	$CollisionShape2D.disabled = false
+	# $CollisionShape2D.disabled = false
+	$CollisionShape2D.set_deferred("disabled", false)
 
 
 func _on_body_entered(body: Node2D) -> void:
+	print("i'm ready")
 	if not body.is_in_group("Player"): return
 
-	get_tree().change_scene_to_packed(next_level)
+	get_tree().change_scene_to_packed.call_deferred(next_level)

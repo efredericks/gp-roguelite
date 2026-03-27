@@ -62,7 +62,7 @@ func take_damage(amount: int) -> void:
 
 func die() -> void:
 	# await $DamagedSound.finished # wait for final sound 
-	pass
+	get_tree().change_scene_to_file("res://scenes/menu.tscn")
 
 # returns false if no need for healing
 func heal(amount: int) -> bool:

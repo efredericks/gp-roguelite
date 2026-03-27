@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c64m6pc5fdumm" path="res://scenes/enemies/enemy_boss.tscn" id="2_gvk5i"]
 [ext_resource type="PackedScene" uid="uid://b37onasdp1ora" path="res://scenes/enemies/enemy.tscn" id="3_vlywb"]
 [ext_resource type="Script" uid="uid://c85j2nuujof86" path="res://scripts/next_level_portal.gd" id="4_32rs4"]
+[ext_resource type="PackedScene" uid="uid://btbdn5g57r3u5" path="res://scenes/menu.tscn" id="5_fe6ma"]
 [ext_resource type="Texture2D" uid="uid://xeimak4yjnks" path="res://assets/sprites/kenney_1bit_pack/colored-transparent_packed.png" id="5_gq3uu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fe6ma"]
@@ -28,8 +29,10 @@ position = Vector2(-108, 106)
 position = Vector2(110, -108)
 
 [node name="NextLevelPortal" type="Area2D" parent="." index="15" unique_id=1199826729 node_paths=PackedStringArray("boss")]
+collision_mask = 3
 script = ExtResource("4_32rs4")
 boss = NodePath("../enemy")
+next_level = ExtResource("5_fe6ma")
 
 [node name="Sprite2D" type="Sprite2D" parent="NextLevelPortal" index="0" unique_id=1411918247]
 texture = ExtResource("5_gq3uu")

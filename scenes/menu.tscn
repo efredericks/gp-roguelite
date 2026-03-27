@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://btbdn5g57r3u5"]
+
+[ext_resource type="Script" uid="uid://de6nsgpmxbceb" path="res://scripts/menu.gd" id="1_yqeox"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4h3mk"]
+font_size = 96
+font_color = Color(0.28235295, 1, 1, 1)
+
+[node name="menu" type="Control" unique_id=1680762944]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yqeox")
+
+[node name="title" type="Label" parent="." unique_id=1586519623]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "GP Roguelite"
+label_settings = SubResource("LabelSettings_4h3mk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="." unique_id=1534584042]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.5
+offset_top = -130.0
+offset_right = 80.5
+offset_bottom = -76.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "play"
+
+[node name="QuitButton" type="Button" parent="." unique_id=949413423]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -65.0
+offset_right = 81.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "quit"
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]

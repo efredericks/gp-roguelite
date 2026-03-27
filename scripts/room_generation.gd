@@ -96,7 +96,7 @@ func _instantiate_rooms() -> void:
 			else:
 				room = room_scenes[randi_range(0, len(room_scenes)-1)].instantiate()
 
-			get_tree().get_root().add_child.call_deferred(room)
+			get_tree().get_root().get_node("/root/main").add_child.call_deferred(room)
 			rooms.append(room)
 
 			room.global_position = Vector2(x, y) * room_position_offset
