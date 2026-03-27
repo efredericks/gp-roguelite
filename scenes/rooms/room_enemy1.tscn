@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bhuae28uj4xu1"]
+
+[ext_resource type="PackedScene" uid="uid://bkr5odomb4gac" path="res://scenes/rooms/room_template.tscn" id="1_dfkk3"]
+[ext_resource type="PackedScene" uid="uid://b37onasdp1ora" path="res://scenes/enemies/enemy.tscn" id="2_qqdnn"]
+
+[node name="room_template" unique_id=2016595394 instance=ExtResource("1_dfkk3")]
+doors_always_open = false
+
+[node name="Door_Shut" parent="Entrance_North/Door" parent_id_path=PackedInt32Array(816840611) index="1" unique_id=1037869404]
+visible = true
+
+[node name="DoorSprite" parent="Entrance_West/Door/Door_Shut" parent_id_path=PackedInt32Array(1858993582) index="0" unique_id=1663573604]
+visible = true
+
+[node name="DoorSprite2" parent="Entrance_West/Door/Door_Shut" parent_id_path=PackedInt32Array(1858993582) index="1" unique_id=1323198853]
+visible = true
+
+[node name="enemy" parent="." index="9" unique_id=1570522543 instance=ExtResource("2_qqdnn")]

@@ -1,0 +1,268 @@
+[gd_scene format=3 uid="uid://dpyxvmge25iiw"]
+
+[ext_resource type="PackedScene" uid="uid://dymgdtymdlwfg" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://bw3m55fwxnq6j" path="res://scripts/room_generation.gd" id="1_sugp2"]
+[ext_resource type="Script" uid="uid://c6oqpt7c3e3p2" path="res://scripts/camera_controller.gd" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://bkr5odomb4gac" path="res://scenes/rooms/room_template.tscn" id="2_tefeu"]
+[ext_resource type="PackedScene" uid="uid://bhuae28uj4xu1" path="res://scenes/rooms/room_enemy1.tscn" id="3_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://cj6ptmff5lha8" path="res://scenes/rooms/room_enemy2.tscn" id="4_tipki"]
+[ext_resource type="PackedScene" uid="uid://cjq2k1sndufm7" path="res://scenes/rooms/room_enemy4.tscn" id="5_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://dbyhi0jgarv2n" path="res://scenes/rooms/room_item.tscn" id="6_tipki"]
+[ext_resource type="Texture2D" uid="uid://xeimak4yjnks" path="res://assets/sprites/kenney_1bit_pack/colored-transparent_packed.png" id="9_85g3d"]
+[ext_resource type="Script" uid="uid://tqo0vire5fdf" path="res://scripts/minimap.gd" id="9_choun"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tipki"]
+bg_color = Color(0.16206557, 0.1620656, 0.16206548, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_choun"]
+atlas = ExtResource("9_85g3d")
+region = Rect2(625, 241, 14, 14)
+
+[node name="main" type="Node2D" unique_id=254109296]
+texture_filter = 1
+
+[node name="RoomGeneration" type="Node" parent="." unique_id=562850644 node_paths=PackedStringArray("player")]
+script = ExtResource("1_sugp2")
+first_room_scene = ExtResource("2_tefeu")
+room_scenes = Array[PackedScene]([ExtResource("3_o6xl0"), ExtResource("4_tipki"), ExtResource("5_o6xl0"), ExtResource("6_tipki")])
+player = NodePath("../player")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1101061757]
+scale = Vector2(2, 2)
+script = ExtResource("2_sugp2")
+
+[node name="player" parent="." unique_id=890877435 instance=ExtResource("1_o5qli")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=589207044]
+
+[node name="BorderLeft" type="Panel" parent="CanvasLayer" unique_id=1247393700]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 220.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tipki")
+
+[node name="BorderRight" type="Panel" parent="CanvasLayer" unique_id=146389070]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -220.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tipki")
+
+[node name="minimap" type="GridContainer" parent="CanvasLayer/BorderRight" unique_id=1788710780]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -213.0
+offset_top = -214.0
+offset_right = -109.0
+offset_bottom = -110.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(2, 2)
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 7
+script = ExtResource("9_choun")
+
+[node name="RoomIcon" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1528441417]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon2" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=90112123]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon3" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=103509883]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon4" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1711331260]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon5" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1638411530]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon6" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=489878865]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon7" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=237206899]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon8" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=718331862]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon9" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=255078468]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon10" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=2069103004]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon11" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=849139390]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon12" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=676914536]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon13" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1910034670]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon14" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1628695378]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon15" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=157501930]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon16" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=613839653]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon17" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1316364780]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon18" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1200857158]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon19" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=991680148]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon20" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1489666276]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon21" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=305374261]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon22" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=631921484]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon23" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1614384541]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon24" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=300188132]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon25" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=143049925]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon26" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=874032055]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon27" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1256694562]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon28" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1907064869]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon29" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=967887810]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon30" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1898964142]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon31" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=753871677]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon32" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=948149044]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon33" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1063970834]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon34" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=871336636]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon35" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1578689484]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon36" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=620839275]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon37" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=691019043]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon38" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1342728356]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon39" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1185460364]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon40" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=689187110]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon41" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1061078758]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon42" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1134203441]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon43" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1349601556]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon44" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1220109931]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon45" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=792375657]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon46" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=7957428]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon47" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1160388837]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon48" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=1346920556]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")
+
+[node name="RoomIcon49" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=2042340450]
+layout_mode = 2
+texture = SubResource("AtlasTexture_choun")

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cj6ptmff5lha8"]
+
+[ext_resource type="PackedScene" uid="uid://bkr5odomb4gac" path="res://scenes/rooms/room_template.tscn" id="1_nhvuu"]
+[ext_resource type="PackedScene" uid="uid://b37onasdp1ora" path="res://scenes/enemies/enemy.tscn" id="2_x8qqg"]
+
+[node name="room_template" unique_id=2016595394 instance=ExtResource("1_nhvuu")]
+
+[node name="enemy" parent="." index="9" unique_id=1570522543 instance=ExtResource("2_x8qqg")]
+position = Vector2(-101, -103)
+
+[node name="enemy2" parent="." index="10" unique_id=1785875417 instance=ExtResource("2_x8qqg")]
+position = Vector2(105, 104)

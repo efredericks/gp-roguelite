@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://yph04uxegycc"]
+
+[ext_resource type="Script" uid="uid://clq5vdwwigypw" path="res://scripts/item.gd" id="1_jgeia"]
+[ext_resource type="Texture2D" uid="uid://xeimak4yjnks" path="res://assets/sprites/kenney_1bit_pack/colored-transparent_packed.png" id="2_fat2f"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tipki"]
+radius = 6.0
+height = 16.0
+
+[node name="Item" type="Area2D" unique_id=1589097201]
+collision_mask = 3
+script = ExtResource("1_jgeia")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1754153613]
+texture = ExtResource("2_fat2f")
+region_enabled = true
+region_rect = Rect2(674, 177, 12, 14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=620727722]
+shape = SubResource("CapsuleShape2D_tipki")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
