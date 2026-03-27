@@ -3,6 +3,7 @@ class_name Room extends StaticBody2D
 enum Direction { NORTH, SOUTH, EAST, WEST }
 
 @export var doors_always_open: bool = false
+@export var is_boss_room: bool = false
 
 @onready var entrance_north: RoomEntrance = $Entrance_North
 @onready var entrance_south: RoomEntrance = $Entrance_South

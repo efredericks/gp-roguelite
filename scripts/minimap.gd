@@ -5,6 +5,7 @@ var icons: Array[TextureRect]
 
 var room_texture: Texture = preload("res://assets/minimap_main.tres")
 var player_room_texture: Texture = preload("res://assets/minimap_player.tres")
+var boss_room_texture: Texture = preload("res://assets/minimap_boss.tres")
 
 func _ready() -> void:
 	GlobalSignals.OnPlayerEnterRoom.connect(_on_player_enter_room)
@@ -30,6 +31,8 @@ func _on_player_enter_room(room: Room):
 				icons[idx].texture = null
 			elif r == room:
 				icons[idx].texture = player_room_texture
+			elif r.is_boss_room:
+				icons[idx].texture = boss_room_texture
 			else:
 				icons[idx].texture = room_texture
 

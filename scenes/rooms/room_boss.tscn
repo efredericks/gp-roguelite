@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://b4n2l07xagvlm"]
+
+[ext_resource type="PackedScene" uid="uid://bkr5odomb4gac" path="res://scenes/rooms/room_template.tscn" id="1_yoxlf"]
+[ext_resource type="PackedScene" uid="uid://c64m6pc5fdumm" path="res://scenes/enemies/enemy_boss.tscn" id="2_gvk5i"]
+[ext_resource type="PackedScene" uid="uid://b37onasdp1ora" path="res://scenes/enemies/enemy.tscn" id="3_vlywb"]
+[ext_resource type="Script" uid="uid://c85j2nuujof86" path="res://scripts/next_level_portal.gd" id="4_32rs4"]
+[ext_resource type="Texture2D" uid="uid://xeimak4yjnks" path="res://assets/sprites/kenney_1bit_pack/colored-transparent_packed.png" id="5_gq3uu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fe6ma"]
+radius = 11.0
+
+[node name="room_template" unique_id=2016595394 instance=ExtResource("1_yoxlf")]
+is_boss_room = true
+
+[node name="enemy" parent="." index="10" unique_id=1570522543 instance=ExtResource("2_gvk5i")]
+position = Vector2(0, -1)
+
+[node name="enemy2" parent="." index="11" unique_id=1513160213 instance=ExtResource("3_vlywb")]
+position = Vector2(107, 104)
+
+[node name="enemy3" parent="." index="12" unique_id=46814921 instance=ExtResource("3_vlywb")]
+position = Vector2(-105, -106)
+
+[node name="enemy4" parent="." index="13" unique_id=1152233168 instance=ExtResource("3_vlywb")]
+position = Vector2(-108, 106)
+
+[node name="enemy5" parent="." index="14" unique_id=1186714113 instance=ExtResource("3_vlywb")]
+position = Vector2(110, -108)
+
+[node name="NextLevelPortal" type="Area2D" parent="." index="15" unique_id=1199826729 node_paths=PackedStringArray("boss")]
+script = ExtResource("4_32rs4")
+boss = NodePath("../enemy")
+
+[node name="Sprite2D" type="Sprite2D" parent="NextLevelPortal" index="0" unique_id=1411918247]
+texture = ExtResource("5_gq3uu")
+region_enabled = true
+region_rect = Rect2(320, 48, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NextLevelPortal" index="1" unique_id=370717980]
+shape = SubResource("CircleShape2D_fe6ma")
+
+[connection signal="body_entered" from="NextLevelPortal" to="NextLevelPortal" method="_on_body_entered"]

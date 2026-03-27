@@ -17,6 +17,7 @@ var room_scene: PackedScene = preload("res://scenes/rooms/room_template.tscn")
 
 @export var first_room_scene: PackedScene
 @export var room_scenes: Array[PackedScene]
+@export var boss_room: PackedScene
 
 @export var player: CharacterBody2D
 
@@ -78,6 +79,8 @@ func _check_room(x: int, y: int, desired_direction: Vector2, is_first_room: bool
 
 
 func _instantiate_rooms() -> void:
+	var boss_room_pos: Vector2 = _decide_boss_room()
+
 	for x in range(map_size):
 		for y in range(map_size):
 			if not _get_map(x, y):
@@ -88,6 +91,8 @@ func _instantiate_rooms() -> void:
 
 			if is_first_room:
 				room = room_scene.instantiate()
+			elif x == boss_room_pos.x and y == boss_room_pos.y:
+				room = boss_room.instantiate()
 			else:
 				room = room_scenes[randi_range(0, len(room_scenes)-1)].instantiate()
 
@@ -117,7 +122,17 @@ func _instantiate_rooms() -> void:
 
 	first_room.player_enter.call_deferred(Room.Direction.NORTH, player, true)
 
+func _decide_boss_room() -> Vector2:
+	var i = 0
+	while i < 100:
+		var x = randi_range(0, map_size - 1)
+		var y = randi_range(0, map_size - 1)
 
+		if first_room_x == x and first_room_y == y:
+			continue
+		if _get_map(x, y):
+			return Vector2(x, y)
+	return Vector2.ZERO
 
 # map helper functions
 func get_room_from_map(x: int, y: int) -> Room:

@@ -62,7 +62,7 @@ func take_damage(damage: int):
 		die()
 
 func die():
-	await $DamagedSound.finished # wait for final sound 
+	# await $DamagedSound.finished # wait for final sound 
 	GlobalSignals.OnDefeatEnemy.emit(self)
 	queue_free()
 
