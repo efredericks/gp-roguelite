@@ -52,6 +52,8 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 func take_damage(amount: int) -> void:
+	_damage_flash()
+
 	currHP -= amount
 	GlobalSignals.OnPlayerUpdateHealth.emit(currHP, maxHP)
 	if currHP <= 0:
@@ -83,3 +85,8 @@ func _shoot(dir = null) -> void:
 		proj.rotation = weapon_origin.rotation
 	else:
 		proj.rotation_degrees = rad_to_deg(dir.angle()) + 90 
+
+func _damage_flash():
+	visible = false
+	await get_tree().create_timer(0.07).timeout
+	visible = true
