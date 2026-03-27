@@ -4,6 +4,7 @@
 [ext_resource type="TileSet" uid="uid://dh5k1awfa8ldg" path="res://assets/main_tileset.tres" id="2_c1qis"]
 [ext_resource type="Script" uid="uid://4esysv1og0pi" path="res://scripts/room_entrance.gd" id="3_0xryl"]
 [ext_resource type="Texture2D" uid="uid://xeimak4yjnks" path="res://assets/sprites/kenney_1bit_pack/colored-transparent_packed.png" id="4_jv423"]
+[ext_resource type="AudioStream" uid="uid://cq15ieg51ocsw" path="res://assets/audio/RoomEnter.wav" id="5_c1qis"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ya4ey"]
 size = Vector2(34, 14)
@@ -254,3 +255,6 @@ polygon = PackedVector2Array(-120, -16.999989, -120.00001, -119.99999, -17.00001
 [node name="WallCollider2" type="CollisionPolygon2D" parent="." unique_id=1554919966]
 rotation = 1.5707964
 polygon = PackedVector2Array(-120, -16.999994, -120.00001, -119.99999, -17.000006, -120, -17.000008, -159, -159, -159, -159, -16.999992)
+
+[node name="RoomEnterSound" type="AudioStreamPlayer2D" parent="." unique_id=2076782964]
+stream = ExtResource("5_c1qis")

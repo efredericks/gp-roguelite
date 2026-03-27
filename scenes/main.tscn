@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://tqo0vire5fdf" path="res://scripts/minimap.gd" id="9_choun"]
 [ext_resource type="Script" uid="uid://jv8w1lk2noj3" path="res://scripts/player_health_ui.gd" id="9_eb6dy"]
 [ext_resource type="Texture2D" uid="uid://biy8f4amxegg5" path="res://assets/player_heart.tres" id="10_trceg"]
+[ext_resource type="AudioStream" uid="uid://cihymk0555uom" path="res://assets/audio/Music.mp3" id="13_trceg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tipki"]
 bg_color = Color(0.16206557, 0.1620656, 0.16206548, 1)
@@ -322,3 +323,8 @@ texture = SubResource("AtlasTexture_choun")
 [node name="RoomIcon49" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=2042340450]
 layout_mode = 2
 texture = SubResource("AtlasTexture_choun")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1162987747]
+stream = ExtResource("13_trceg")
+volume_db = -20.0
+autoplay = true

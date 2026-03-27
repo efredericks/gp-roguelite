@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c1433f8wpqcmk" path="res://scripts/enemy.gd" id="1_8e3ao"]
 [ext_resource type="Texture2D" uid="uid://xeimak4yjnks" path="res://assets/sprites/kenney_1bit_pack/colored-transparent_packed.png" id="2_38ino"]
+[ext_resource type="AudioStream" uid="uid://b2kcx51cbnnt7" path="res://assets/audio/EnemyDamaged.wav" id="3_38ino"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jyhfs"]
 radius = 7.0
@@ -11,7 +12,6 @@ height = 14.0
 collision_layer = 4
 collision_mask = 9
 script = ExtResource("1_8e3ao")
-atk_range = 2.0
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=678311664]
 texture = ExtResource("2_38ino")
@@ -20,3 +20,6 @@ region_rect = Rect2(449, 1, 14, 14)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1337732298]
 shape = SubResource("CapsuleShape2D_jyhfs")
+
+[node name="DamagedSound" type="AudioStreamPlayer2D" parent="." unique_id=807581352]
+stream = ExtResource("3_38ino")

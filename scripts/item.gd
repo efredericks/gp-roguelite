@@ -22,5 +22,7 @@ func _on_body_entered(body: Node2D) -> void:
 	elif item_type == ItemType.MOVE_SPEED:
 		body.move_speed += item_value
 
+	body.get_node("ItemSound").play()
+
 	if clear_item:
 		queue_free()

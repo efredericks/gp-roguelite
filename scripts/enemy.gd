@@ -54,13 +54,15 @@ func _try_attack():
 	player.take_damage(attack_damage)
 
 func take_damage(damage: int):
+	$DamagedSound.play()
 	_damage_flash()
-	
+
 	currHP -= damage
 	if currHP <= 0:
 		die()
 
 func die():
+	await $DamagedSound.finished # wait for final sound 
 	GlobalSignals.OnDefeatEnemy.emit(self)
 	queue_free()
 

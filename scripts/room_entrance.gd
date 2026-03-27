@@ -44,6 +44,7 @@ func _on_body_entered_exit_trigger(body):
 	if body.is_in_group("Player"):
 		neighbor.player_enter(_get_neighbor_entry_direction(), body)
 
+
 # tell us what direction we're entering neighbor from
 func _get_neighbor_entry_direction() -> Room.Direction:
 	if direction == Room.Direction.NORTH:

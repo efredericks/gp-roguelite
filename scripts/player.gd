@@ -53,6 +53,7 @@ func _physics_process(_delta: float) -> void:
 
 func take_damage(amount: int) -> void:
 	_damage_flash()
+	$DamagedSound.play()
 
 	currHP -= amount
 	GlobalSignals.OnPlayerUpdateHealth.emit(currHP, maxHP)
@@ -60,6 +61,7 @@ func take_damage(amount: int) -> void:
 		die() 
 
 func die() -> void:
+	# await $DamagedSound.finished # wait for final sound 
 	pass
 
 # returns false if no need for healing
@@ -85,6 +87,8 @@ func _shoot(dir = null) -> void:
 		proj.rotation = weapon_origin.rotation
 	else:
 		proj.rotation_degrees = rad_to_deg(dir.angle()) + 90 
+
+	$ShootSound.play()
 
 func _damage_flash():
 	visible = false

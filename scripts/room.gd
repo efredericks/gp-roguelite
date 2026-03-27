@@ -46,6 +46,8 @@ func player_enter(entry_direction: Direction, player: CharacterBody2D, first_roo
 	# spawn player in middle
 	if first_room:
 		player.global_position = global_position
+	else:
+		$RoomEnterSound.play()
 
 	# emit that player entered the room
 	GlobalSignals.OnPlayerEnterRoom.emit(self)
@@ -77,3 +79,4 @@ func _on_enemy_defeated(enemy: Enemy):
 
 		if enemies_in_room <= 0:
 			open_doors()
+			$RoomEnterSound.play()
