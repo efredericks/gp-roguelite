@@ -14,6 +14,8 @@ var last_shoot_time: float
 
 var projectile_scene: PackedScene = preload("res://scenes/projectiles/projectile.tscn")
 
+func _ready() -> void:
+	GlobalSignals.OnPlayerUpdateHealth.emit.call_deferred(currHP, maxHP)
 
 func _process(delta: float) -> void:
 	# aim towards mouse
@@ -51,6 +53,7 @@ func _physics_process(_delta: float) -> void:
 
 func take_damage(amount: int) -> void:
 	currHP -= amount
+	GlobalSignals.OnPlayerUpdateHealth.emit(currHP, maxHP)
 	if currHP <= 0:
 		die() 
 
@@ -64,6 +67,7 @@ func heal(amount: int) -> bool:
 
 	currHP += amount
 	if currHP > maxHP: currHP = maxHP
+	GlobalSignals.OnPlayerUpdateHealth.emit(currHP, maxHP)
 	return true
 
 func _shoot(dir = null) -> void:
