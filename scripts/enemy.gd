@@ -29,6 +29,9 @@ func initialize(in_room: Room):
 func _on_player_enter_room(player_room: Room):
 	is_active = player_room == room
 
+func _process(_delta: float) -> void:
+	_move_wobble()
+
 func _physics_process(delta: float) -> void:
 	if not is_active or player == null: return
 
@@ -70,3 +73,12 @@ func _damage_flash():
 	visible = false
 	await get_tree().create_timer(0.07).timeout
 	visible = true
+
+func _move_wobble():
+	if get_real_velocity().length() == 0:
+		sprite.rotation_degrees = 0
+		return
+	
+	var t = Time.get_unix_time_from_system()
+	var rot = 2 * sin(20 * t)
+	sprite.rotation_degrees = rot

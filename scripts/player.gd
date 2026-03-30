@@ -1,3 +1,4 @@
+# light: https://medium.com/@merxon22/godot-mastering-2d-lighting-a949320e1f68
 extends CharacterBody2D
 
 @onready var sprite: Sprite2D = $playerSprite
@@ -43,6 +44,8 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("attack"):
 		if Time.get_unix_time_from_system() - last_shoot_time > shoot_rate:
 			_shoot()
+
+	_move_wobble()
 
 
 func _physics_process(_delta: float) -> void:
@@ -94,3 +97,12 @@ func _damage_flash():
 	visible = false
 	await get_tree().create_timer(0.07).timeout
 	visible = true
+
+func _move_wobble():
+	if get_real_velocity().length() == 0:
+		sprite.rotation_degrees = 0
+		return
+	
+	var t = Time.get_unix_time_from_system()
+	var rot = 2 * sin(20 * t)
+	sprite.rotation_degrees = rot

@@ -10,6 +10,16 @@
 radius = 5.0
 height = 12.0
 
+[sub_resource type="Gradient" id="Gradient_qlg0r"]
+offsets = PackedFloat32Array(0, 0.8915663)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tuyoq"]
+gradient = SubResource("Gradient_qlg0r")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 1)
+
 [node name="player" type="CharacterBody2D" unique_id=890877435 groups=["Player"]]
 collision_layer = 2
 collision_mask = 9
@@ -45,3 +55,8 @@ stream = ExtResource("4_dqkch")
 
 [node name="ItemSound" type="AudioStreamPlayer2D" parent="." unique_id=264184711]
 stream = ExtResource("5_qlg0r")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=722123403]
+color = Color(1, 0.9882353, 0.54901963, 0.56078434)
+texture = SubResource("GradientTexture2D_tuyoq")
+texture_scale = 2.87

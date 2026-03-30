@@ -42,4 +42,7 @@ region_rect = Rect2(320, 48, 32, 32)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NextLevelPortal" index="1" unique_id=370717980]
 shape = SubResource("CircleShape2D_fe6ma")
 
+[node name="CanvasModulate" type="CanvasModulate" parent="." index="16" unique_id=1390062476]
+color = Color(0.12366199, 0.37059906, 0.44565558, 1)
+
 [connection signal="body_entered" from="NextLevelPortal" to="NextLevelPortal" method="_on_body_entered"]
