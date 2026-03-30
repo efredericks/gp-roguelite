@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://yugfn331h76q"]
+
+[ext_resource type="PackedScene" uid="uid://bkr5odomb4gac" path="res://scenes/rooms/room_template.tscn" id="1_cag6b"]
+[ext_resource type="PackedScene" uid="uid://cu1o0tgc3ie6r" path="res://scenes/obstacles/obstacle.tscn" id="2_wbsp6"]
+[ext_resource type="PackedScene" uid="uid://b37onasdp1ora" path="res://scenes/enemies/enemy.tscn" id="3_pwjq1"]
+
+[node name="room_template" unique_id=2016595394 instance=ExtResource("1_cag6b")]
+
+[node name="obstacle" parent="." index="10" unique_id=1832884261 instance=ExtResource("2_wbsp6")]
+position = Vector2(-36, 36)
+
+[node name="obstacle2" parent="." index="11" unique_id=960130378 instance=ExtResource("2_wbsp6")]
+position = Vector2(36, 36)
+
+[node name="obstacle3" parent="." index="12" unique_id=817958863 instance=ExtResource("2_wbsp6")]
+position = Vector2(-36, -36)
+
+[node name="obstacle4" parent="." index="13" unique_id=816375626 instance=ExtResource("2_wbsp6")]
+position = Vector2(36, -36)
+
+[node name="enemy" parent="." index="14" unique_id=1570522543 instance=ExtResource("3_pwjq1")]
+position = Vector2(-36, 0)
+
+[node name="enemy2" parent="." index="15" unique_id=179473703 instance=ExtResource("3_pwjq1")]
+position = Vector2(36, 0)
