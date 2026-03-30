@@ -4,16 +4,75 @@ enum Direction { NORTH, SOUTH, EAST, WEST }
 
 @export var doors_always_open: bool = false
 @export var is_boss_room: bool = false
+@export var is_pcg_room: bool = false
+@export var max_pcg_enemies: int = 6
 
 @onready var entrance_north: RoomEntrance = $Entrance_North
 @onready var entrance_south: RoomEntrance = $Entrance_South
 @onready var entrance_east: RoomEntrance = $Entrance_East
 @onready var entrance_west: RoomEntrance = $Entrance_West
 
+@onready var obstacle: PackedScene = preload("res://scenes/obstacles/obstacle.tscn")
+@onready var enemy: PackedScene = preload("res://scenes/enemies/enemy.tscn")
+
 var enemies_in_room: int
+
+# cell slots
+var num_cells: int = 14 
+var room_grid: Array[String] = []
+var tile_size: int = 16
 
 func _ready() -> void:
 	GlobalSignals.OnDefeatEnemy.connect(_on_enemy_defeated)
+
+	# place things
+	if is_pcg_room:
+		for x in range(num_cells):
+			for y in range(num_cells):
+				var ch = " "
+
+				# leave a border
+				if x > 0 and x < num_cells-1 and y > 0 and y < num_cells-1:
+					if (randf() > 0.7):
+						ch = "#"
+				room_grid.append(ch)
+
+
+
+		var num_enemies = randi_range(0, max_pcg_enemies)
+		for e in range(num_enemies):
+			var timeout = 100
+			while timeout > 0:
+				var idx = randi_range(0, num_cells-1)
+				var idy = randi_range(0, num_cells-1)
+				if room_grid[idx + idy * num_cells] == " ":
+					room_grid[idx + idy * num_cells] = "e"
+					break
+
+				timeout -= 1
+
+		var half_map_size: int = (num_cells * tile_size) / 2
+		for x in range(0,num_cells):
+			for y in range(0,num_cells):
+				var _x: int = (x * tile_size) - half_map_size + (tile_size / 2)
+				var _y: int = (y * tile_size) - half_map_size + (tile_size / 2)
+				if room_grid[x + y * num_cells] == "#":
+					var o = obstacle.instantiate()
+					o.global_position = Vector2(_x, _y)
+					add_child(o)
+				elif room_grid[x + y * num_cells] == "e":
+					var e = enemy.instantiate()
+					e.global_position = Vector2(_x, _y)
+					add_child(e)
+
+
+		# for i in randi_range(1, 10):
+		# 	var x = randi_range(-120, 120)
+		# 	var y = randi_range(-120, 120)
+		# 	var o = obstacle.instantiate()
+		# 	o.global_position = Vector2(x, y)
+		# 	add_child.call_deferred(o)
+
 	for child in get_children():
 		if child is Enemy:
 			enemies_in_room += 1

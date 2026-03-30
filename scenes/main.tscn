@@ -4,12 +4,8 @@
 [ext_resource type="Script" uid="uid://bw3m55fwxnq6j" path="res://scripts/room_generation.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://c6oqpt7c3e3p2" path="res://scripts/camera_controller.gd" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://bkr5odomb4gac" path="res://scenes/rooms/room_template.tscn" id="2_tefeu"]
-[ext_resource type="PackedScene" uid="uid://bhuae28uj4xu1" path="res://scenes/rooms/room_enemy1.tscn" id="3_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://cj6ptmff5lha8" path="res://scenes/rooms/room_enemy2.tscn" id="4_tipki"]
-[ext_resource type="PackedScene" uid="uid://cjq2k1sndufm7" path="res://scenes/rooms/room_enemy4.tscn" id="5_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://dbyhi0jgarv2n" path="res://scenes/rooms/room_item.tscn" id="6_tipki"]
+[ext_resource type="PackedScene" uid="uid://dxp7g6ngj370n" path="res://scenes/rooms/room_pcg.tscn" id="3_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://b4n2l07xagvlm" path="res://scenes/rooms/room_boss.tscn" id="7_a8y0u"]
-[ext_resource type="PackedScene" uid="uid://yugfn331h76q" path="res://scenes/rooms/room_obstacle.tscn" id="7_jkv2x"]
 [ext_resource type="Texture2D" uid="uid://xeimak4yjnks" path="res://assets/sprites/kenney_1bit_pack/colored-transparent_packed.png" id="9_85g3d"]
 [ext_resource type="Script" uid="uid://tqo0vire5fdf" path="res://scripts/minimap.gd" id="9_choun"]
 [ext_resource type="Script" uid="uid://jv8w1lk2noj3" path="res://scripts/player_health_ui.gd" id="9_eb6dy"]
@@ -31,7 +27,7 @@ script = ExtResource("1_sugp2")
 map_size = null
 rooms_to_generate = null
 first_room_scene = ExtResource("2_tefeu")
-room_scenes = Array[PackedScene]([ExtResource("3_o6xl0"), ExtResource("4_tipki"), ExtResource("5_o6xl0"), ExtResource("6_tipki"), ExtResource("7_jkv2x")])
+room_scenes = Array[PackedScene]([ExtResource("3_ya4ey")])
 boss_room = ExtResource("7_a8y0u")
 player = NodePath("../player")
 

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dxp7g6ngj370n"]
+
+[ext_resource type="PackedScene" uid="uid://bkr5odomb4gac" path="res://scenes/rooms/room_template.tscn" id="1_5ty87"]
+
+[node name="room_template" unique_id=2016595394 instance=ExtResource("1_5ty87")]
+is_pcg_room = true
