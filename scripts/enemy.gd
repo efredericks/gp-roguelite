@@ -2,12 +2,19 @@ class_name Enemy extends CharacterBody2D
 
 @export var currHP: int = 4
 @export var maxHP: int = 4
-@export var move_speed: float = 20
+#@export var move_speed: float = 20
 @export var attack_damage: int = 1
 @export var attack_range: float = 10
 @export var attack_rate: float = 0.5
 
+@export_category("Movement")
+@export var max_speed: float
+@export var acceleration: float
+@export var drag: float
+@export var stop_range: float
+
 @onready var sprite: Sprite2D = $Sprite
+@onready var avoidance_ray: RayCast2D = $AvoidanceRay
 
 var last_attack_time: float
 var room: Room
@@ -43,8 +50,17 @@ func _physics_process(delta: float) -> void:
 	if player_dist < attack_range:
 		_try_attack()
 		return
+		
+	var local_avoidance = _local_avoidance()
+	if local_avoidance.length() > 0:
+		player_dir = local_avoidance
 
-	velocity = player_dir * move_speed
+	#velocity = player_dir * move_speed
+	if velocity.length() < max_speed and player_dist > stop_range:
+		velocity += player_dir * acceleration
+	else:
+		velocity *= drag
+		
 	move_and_slide()
 	# if is_active:
 
@@ -82,3 +98,20 @@ func _move_wobble():
 	var t = Time.get_unix_time_from_system()
 	var rot = 2 * sin(20 * t)
 	sprite.rotation_degrees = rot
+	
+# avoid obstacles when following
+func _local_avoidance() -> Vector2:
+	avoidance_ray.target_position = to_local(player.global_position).normalized()
+	avoidance_ray.target_position *= 20 # only avoid within 80 pixels
+	
+	if not avoidance_ray.is_colliding():
+		return Vector2.ZERO
+	
+	var obstacle = avoidance_ray.get_collider()
+	if obstacle == player:
+		return Vector2.ZERO
+		
+	# hitting an obstacle, so move around
+	var obstacle_point = avoidance_ray.get_collision_point()
+	var obstacle_dir = global_position.direction_to(obstacle_point)
+	return Vector2(-obstacle_dir.y, obstacle_dir.x) # return adjacent 

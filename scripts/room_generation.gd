@@ -2,7 +2,7 @@ class_name RoomGeneration extends Node
 
 # room procgen config
 @export var map_size: int = 7
-@export var rooms_to_generate: int = 12
+@export var rooms_to_generate: int # defined in GlobalSignals = 12
 var room_count: int = 0
 var game_map: Array[bool]
 var rooms: Array[Room]
@@ -22,6 +22,9 @@ var room_scene: PackedScene = preload("res://scenes/rooms/room_template.tscn")
 @export var player: CharacterBody2D
 
 func _ready() -> void:
+	rooms_to_generate = GameState.max_rooms_to_generate
+	
+	print("Rooms to generate: " + str(rooms_to_generate))
 	_generate()
 
 	# debug

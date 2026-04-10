@@ -12,6 +12,10 @@ height = 14.0
 collision_layer = 4
 collision_mask = 9
 script = ExtResource("1_8e3ao")
+max_speed = 30.0
+acceleration = 5.0
+drag = 0.9
+stop_range = 1.0
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=678311664]
 texture = ExtResource("2_38ino")
@@ -23,3 +27,5 @@ shape = SubResource("CapsuleShape2D_jyhfs")
 
 [node name="DamagedSound" type="AudioStreamPlayer2D" parent="." unique_id=807581352]
 stream = ExtResource("3_38ino")
+
+[node name="AvoidanceRay" type="RayCast2D" parent="." unique_id=594296733]

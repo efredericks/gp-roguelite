@@ -5,13 +5,19 @@ extends CharacterBody2D
 @onready var weapon_origin: Node2D = $weapon
 @onready var muzzle: Node2D = $weapon/muzzle
 
-@export var currHP: int = 8
-@export var maxHP: int = 8
+@export_category("Stats")
+@export var currHP: int = GameState.player_hp
+@export var maxHP: int = GameState.player_max_hp
 
+@export_category("Movement")
+@export var max_speed: float = 100.0
+@export var acceleration: float = 0.2
+@export var braking: float = 0.15
 
-@export var move_speed: float = 100
+#@export var move_speed: float = 100
 @export var shoot_rate: float = 0.4
 var last_shoot_time: float
+var move_input: Vector2
 
 var projectile_scene: PackedScene = preload("res://scenes/projectiles/projectile.tscn")
 
@@ -47,12 +53,21 @@ func _process(delta: float) -> void:
 
 	_move_wobble()
 
-
-func _physics_process(_delta: float) -> void:
-	var move_input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-
-	velocity = move_speed * move_input# * delta
+func _physics_process(delta):
+	move_input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	
+	if move_input.length() > 0:
+		velocity = velocity.lerp(move_input * max_speed, acceleration)
+	else:
+		velocity = velocity.lerp(Vector2.ZERO, braking)
 	move_and_slide()
+	 
+	sprite.flip_h = move_input.x > 0
+#func _physics_process(_delta: float) -> void:
+	#var move_input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+#
+	#velocity = move_speed * move_input# * delta
+	#move_and_slide()
 
 func take_damage(amount: int) -> void:
 	_damage_flash()
@@ -60,6 +75,7 @@ func take_damage(amount: int) -> void:
 
 	currHP -= amount
 	GlobalSignals.OnPlayerUpdateHealth.emit(currHP, maxHP)
+	GameState.player_hp = currHP # update global state
 	if currHP <= 0:
 		die() 
 
@@ -74,6 +90,7 @@ func heal(amount: int) -> bool:
 
 	currHP += amount
 	if currHP > maxHP: currHP = maxHP
+	GameState.player_hp = currHP # update global state
 	GlobalSignals.OnPlayerUpdateHealth.emit(currHP, maxHP)
 	return true
 

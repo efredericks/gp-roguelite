@@ -18,6 +18,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 GlobalSignals="*uid://bclekpogth7jb"
+GameState="*uid://b6wviqsbvvv3o"
+
+[global_group]
+
+room_gen=""
 
 [input]
 
