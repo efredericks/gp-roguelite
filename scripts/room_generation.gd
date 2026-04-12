@@ -18,13 +18,15 @@ var room_scene: PackedScene = preload("res://scenes/rooms/room_template.tscn")
 @export var first_room_scene: PackedScene
 @export var room_scenes: Array[PackedScene]
 @export var boss_room: PackedScene
-
 @export var player: CharacterBody2D
+
+@onready var level_text: Label = $"../CanvasLayer/BorderLeft/LevelInfo"
 
 func _ready() -> void:
 	rooms_to_generate = GameState.max_rooms_to_generate
 	
 	print("Rooms to generate: " + str(rooms_to_generate))
+	level_text.text = "Level %d" % GameState.current_level
 	_generate()
 
 	# debug

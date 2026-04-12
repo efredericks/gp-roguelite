@@ -13,6 +13,7 @@ enum Direction { NORTH, SOUTH, EAST, WEST }
 @onready var entrance_west: RoomEntrance = $Entrance_West
 
 @onready var obstacle: PackedScene = preload("res://scenes/obstacles/obstacle.tscn")
+@onready var enemy_bullet_x: PackedScene = preload("res://scenes/enemies/enemy_bullet_x.tscn")
 @onready var enemy: PackedScene = preload("res://scenes/enemies/enemy.tscn")
 
 var enemies_in_room: int
@@ -61,7 +62,11 @@ func _ready() -> void:
 					o.global_position = Vector2(_x, _y)
 					add_child(o)
 				elif room_grid[x + y * num_cells] == "e":
-					var e = enemy.instantiate()
+					var e
+					if randf() > 0.5:
+						e = enemy.instantiate()
+					else:
+						e = enemy_bullet_x.instantiate()
 					e.global_position = Vector2(_x, _y)
 					add_child(e)
 

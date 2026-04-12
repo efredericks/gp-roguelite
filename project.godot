@@ -20,10 +20,6 @@ config/icon="res://icon.svg"
 GlobalSignals="*uid://bclekpogth7jb"
 GameState="*uid://b6wviqsbvvv3o"
 
-[global_group]
-
-room_gen=""
-
 [input]
 
 move_up={

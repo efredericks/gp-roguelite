@@ -1,5 +1,8 @@
 class_name Enemy extends CharacterBody2D
 
+enum ShootPattern {
+	TARGET, CROSS, X
+}
 @export var currHP: int = 4
 @export var maxHP: int = 4
 #@export var move_speed: float = 20
@@ -13,6 +16,14 @@ class_name Enemy extends CharacterBody2D
 @export var drag: float
 @export var stop_range: float
 
+@export_category("Shooting")
+@export var is_shooter: bool = false
+@export var shoot_pattern: ShootPattern
+@export var shoot_rate: float = 0.6
+@export var projectile_scene: PackedScene
+var last_shoot_time: float
+
+@onready var muzzle: Node2D = $muzzle
 @onready var sprite: Sprite2D = $Sprite
 @onready var avoidance_ray: RayCast2D = $AvoidanceRay
 
@@ -37,6 +48,9 @@ func _on_player_enter_room(player_room: Room):
 	is_active = player_room == room
 
 func _process(_delta: float) -> void:
+	if Time.get_unix_time_from_system() - last_shoot_time > shoot_rate and is_shooter and is_active:
+		_shoot()
+			
 	_move_wobble()
 
 func _physics_process(delta: float) -> void:
@@ -115,3 +129,21 @@ func _local_avoidance() -> Vector2:
 	var obstacle_point = avoidance_ray.get_collision_point()
 	var obstacle_dir = global_position.direction_to(obstacle_point)
 	return Vector2(-obstacle_dir.y, obstacle_dir.x) # return adjacent 
+
+
+func _shoot(dir = null) -> void:
+	last_shoot_time = Time.get_unix_time_from_system()
+
+	var dirs: Array[Vector2] = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, -1), Vector2(0, 1)]
+	for d in dirs:
+		# instantiate projectile
+		var proj = projectile_scene.instantiate()
+		get_tree().get_root().add_child.call_deferred(proj)
+		proj.owner_character = self
+		proj.global_position = muzzle.global_position
+		proj.rotation_degrees = rad_to_deg(d.angle()) + 90
+		proj.add_to_group("enemy")
+
+	#proj.rotation_degrees = rad_to_deg(dir.angle()) + 90 
+
+	#$ShootSound.play()

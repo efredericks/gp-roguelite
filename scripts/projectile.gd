@@ -8,7 +8,10 @@ func _process(delta) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body == owner_character: return
+	if body == owner_character: return  # self bullet
+	
+	# enemy group bullet
+	if body.is_in_group("enemy") and is_in_group("enemy"): return
 
 	if body.has_method("take_damage"):
 		body.take_damage(1)

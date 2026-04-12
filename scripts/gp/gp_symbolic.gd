@@ -238,9 +238,9 @@ func _mutate(prog: Array) -> Array:
 	return p
 
 # ── Evolution ──────────────────────────────────────────────────────────────────
-func initialize(seed: int = 0) -> void:
-	if seed != 0:
-		seed(seed)
+func initialize(_seed: int = 0) -> void:
+	if _seed != 0:
+		seed(_seed)
 	_build_samples()
 	population.clear()
 	fitnesses.clear()

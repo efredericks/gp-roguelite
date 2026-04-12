@@ -2,10 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://b37onasdp1ora" path="res://scenes/enemies/enemy.tscn" id="1_ydy32"]
 
-[node name="enemy" unique_id=1570522543 instance=ExtResource("1_ydy32")]
+[node name="enemy" unique_id=1570522543 groups=["enemy"] instance=ExtResource("1_ydy32")]
 currHP = 20
 maxHP = 20
-move_speed = 30.0
 attack_range = 15.0
 attack_rate = 0.3
 

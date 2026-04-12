@@ -23,7 +23,7 @@ func _ready() -> void:
 @onready var gp := GPSymbolic.new()
 
 var running   : bool  = false
-var max_gens  : int   = 500
+var max_gens  : int   = 100
 var step_delay: float = 0.02   # seconds between generations (0 = as fast as possible)
 var _timer    : float = 0.0
 

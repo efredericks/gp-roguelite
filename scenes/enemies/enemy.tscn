@@ -2,13 +2,14 @@
 
 [ext_resource type="Script" uid="uid://c1433f8wpqcmk" path="res://scripts/enemy.gd" id="1_8e3ao"]
 [ext_resource type="Texture2D" uid="uid://xeimak4yjnks" path="res://assets/sprites/kenney_1bit_pack/colored-transparent_packed.png" id="2_38ino"]
+[ext_resource type="PackedScene" uid="uid://3mk8jbfhb3ly" path="res://scenes/projectiles/projectile.tscn" id="2_fcftc"]
 [ext_resource type="AudioStream" uid="uid://b2kcx51cbnnt7" path="res://assets/audio/EnemyDamaged.wav" id="3_38ino"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jyhfs"]
 radius = 6.0
 height = 14.0
 
-[node name="enemy" type="CharacterBody2D" unique_id=1570522543]
+[node name="enemy" type="CharacterBody2D" unique_id=1570522543 groups=["enemy"]]
 collision_layer = 4
 collision_mask = 9
 script = ExtResource("1_8e3ao")
@@ -16,6 +17,7 @@ max_speed = 30.0
 acceleration = 5.0
 drag = 0.9
 stop_range = 1.0
+projectile_scene = ExtResource("2_fcftc")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=678311664]
 texture = ExtResource("2_38ino")
@@ -29,3 +31,6 @@ shape = SubResource("CapsuleShape2D_jyhfs")
 stream = ExtResource("3_38ino")
 
 [node name="AvoidanceRay" type="RayCast2D" parent="." unique_id=594296733]
+
+[node name="muzzle" type="Node2D" parent="." unique_id=1253127531]
+position = Vector2(0, -5)

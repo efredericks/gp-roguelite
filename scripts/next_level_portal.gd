@@ -27,7 +27,9 @@ func _on_body_entered(body: Node2D) -> void:
 	if not body.is_in_group("Player"): return
 
 	GameState.max_rooms_to_generate += 5
+	if GameState.max_rooms_to_generate > 49: GameState.max_rooms_to_generate = 49
 	
-	get_tree().reload_current_scene.call_deferred()
+	GameState.current_level += 1
+	#get_tree().reload_current_scene.call_deferred()
 	#get_tree().change_scene_to_packed.call_deferred(next_level)
-	#get_tree().change_scene_to_file.call_deferred("res://scenes/main.tscn")
+	get_tree().change_scene_to_file.call_deferred("res://scenes/main.tscn")
