@@ -5,20 +5,11 @@
 [ext_resource type="AudioStream" uid="uid://clcd5r8c37n2" path="res://assets/audio/PlayerAttack.wav" id="3_qhqgy"]
 [ext_resource type="AudioStream" uid="uid://bdm0lej7npgy2" path="res://assets/audio/PlayerDamaged.wav" id="4_dqkch"]
 [ext_resource type="AudioStream" uid="uid://bwuejxvrc5pmv" path="res://assets/audio/CollectItem.wav" id="5_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://wjb0xjrckv7s" path="res://assets/light_texture.tres" id="6_tuyoq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o5qli"]
 radius = 5.0
 height = 12.0
-
-[sub_resource type="Gradient" id="Gradient_qlg0r"]
-offsets = PackedFloat32Array(0, 0.8915663)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tuyoq"]
-gradient = SubResource("Gradient_qlg0r")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 1)
 
 [node name="player" type="CharacterBody2D" unique_id=890877435 groups=["Player"]]
 collision_layer = 2
@@ -59,5 +50,5 @@ stream = ExtResource("5_qlg0r")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=722123403]
 color = Color(1, 0.9882353, 0.54901963, 0.56078434)
-texture = SubResource("GradientTexture2D_tuyoq")
+texture = ExtResource("6_tuyoq")
 texture_scale = 2.87

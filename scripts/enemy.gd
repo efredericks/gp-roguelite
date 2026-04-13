@@ -27,6 +27,9 @@ var last_shoot_time: float
 @onready var sprite: Sprite2D = $Sprite
 @onready var avoidance_ray: RayCast2D = $AvoidanceRay
 
+@export var drop_chance: float = 0.2
+@export var hp_pot: PackedScene
+
 var last_attack_time: float
 var room: Room
 var is_active: bool = false
@@ -97,6 +100,12 @@ func take_damage(damage: int):
 func die():
 	# await $DamagedSound.finished # wait for final sound 
 	GlobalSignals.OnDefeatEnemy.emit(self)
+	
+	if randf() < drop_chance:
+		var item = hp_pot.instantiate()
+		get_tree().get_root().add_child.call_deferred(item)
+		item.global_position = global_position
+
 	queue_free()
 
 func _damage_flash():
@@ -134,15 +143,27 @@ func _local_avoidance() -> Vector2:
 func _shoot(dir = null) -> void:
 	last_shoot_time = Time.get_unix_time_from_system()
 
-	var dirs: Array[Vector2] = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, -1), Vector2(0, 1)]
-	for d in dirs:
-		# instantiate projectile
-		var proj = projectile_scene.instantiate()
-		get_tree().get_root().add_child.call_deferred(proj)
-		proj.owner_character = self
-		proj.global_position = muzzle.global_position
-		proj.rotation_degrees = rad_to_deg(d.angle()) + 90
-		proj.add_to_group("enemy")
+	if shoot_pattern == ShootPattern.X:
+		var dirs: Array[Vector2] = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, -1), Vector2(0, 1)]
+		for d in dirs:
+			# instantiate projectile
+			var proj = projectile_scene.instantiate()
+			get_tree().get_root().add_child.call_deferred(proj)
+			proj.owner_character = self
+			proj.global_position = muzzle.global_position
+			proj.rotation_degrees = rad_to_deg(d.angle()) + 45
+			proj.add_to_group("enemy")
+	elif shoot_pattern == ShootPattern.CROSS:
+		var dirs: Array[Vector2] = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, -1), Vector2(0, 1)]
+		for d in dirs:
+			# instantiate projectile
+			var proj = projectile_scene.instantiate()
+			get_tree().get_root().add_child.call_deferred(proj)
+			proj.owner_character = self
+			proj.global_position = muzzle.global_position
+			proj.rotation_degrees = rad_to_deg(d.angle()) + 90
+			proj.add_to_group("enemy")
+		
 
 	#proj.rotation_degrees = rad_to_deg(dir.angle()) + 90 
 

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://clq5vdwwigypw" path="res://scripts/item.gd" id="1_jgeia"]
 [ext_resource type="Texture2D" uid="uid://xeimak4yjnks" path="res://assets/sprites/kenney_1bit_pack/colored-transparent_packed.png" id="2_fat2f"]
+[ext_resource type="Texture2D" uid="uid://wjb0xjrckv7s" path="res://assets/light_texture.tres" id="3_fat2f"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tipki"]
 radius = 6.0
@@ -18,5 +19,9 @@ region_rect = Rect2(674, 177, 12, 14)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=620727722]
 shape = SubResource("CapsuleShape2D_tipki")
+
+[node name="light" type="PointLight2D" parent="." unique_id=1172520128]
+color = Color(0.19170284, 0.7500315, 0.7146641, 0.56078434)
+texture = ExtResource("3_fat2f")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -14,6 +14,7 @@ enum Direction { NORTH, SOUTH, EAST, WEST }
 
 @onready var obstacle: PackedScene = preload("res://scenes/obstacles/obstacle.tscn")
 @onready var enemy_bullet_x: PackedScene = preload("res://scenes/enemies/enemy_bullet_x.tscn")
+@onready var enemy_bullet_plus: PackedScene = preload("res://scenes/enemies/enemy_bullet_plus.tscn")
 @onready var enemy: PackedScene = preload("res://scenes/enemies/enemy.tscn")
 
 var enemies_in_room: int
@@ -63,8 +64,11 @@ func _ready() -> void:
 					add_child(o)
 				elif room_grid[x + y * num_cells] == "e":
 					var e
-					if randf() > 0.5:
+					var r = randf()
+					if r < 0.6:
 						e = enemy.instantiate()
+					elif r < 0.8:
+						e = enemy_bullet_plus.instantiate()
 					else:
 						e = enemy_bullet_x.instantiate()
 					e.global_position = Vector2(_x, _y)
