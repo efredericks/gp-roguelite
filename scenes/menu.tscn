@@ -1,10 +1,16 @@
 [gd_scene format=3 uid="uid://btbdn5g57r3u5"]
 
 [ext_resource type="Script" uid="uid://de6nsgpmxbceb" path="res://scripts/menu.gd" id="1_yqeox"]
+[ext_resource type="FontFile" uid="uid://cellm35opdosb" path="res://assets/fonts/fonts/connection/Connection.otf" id="2_vjb58"]
+[ext_resource type="Theme" uid="uid://dgcfhrperixa1" path="res://assets/button_theme.tres" id="3_con2f"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4h3mk"]
+font = ExtResource("2_vjb58")
 font_size = 96
 font_color = Color(0.28235295, 1, 1, 1)
+shadow_size = 10
+shadow_color = Color(0.5019608, 0.49803922, 0.72156864, 0.6509804)
+shadow_offset = Vector2(-2, 2)
 
 [node name="menu" type="Control" unique_id=1680762944]
 layout_mode = 3
@@ -19,7 +25,8 @@ script = ExtResource("1_yqeox")
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 23.0
+offset_top = 114.0
+offset_bottom = 211.0
 grow_horizontal = 2
 text = "GP Roguelite"
 label_settings = SubResource("LabelSettings_4h3mk")
@@ -33,12 +40,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -80.5
-offset_top = -130.0
-offset_right = 80.5
-offset_bottom = -76.0
+offset_left = -80.0
+offset_top = -16.0
+offset_right = 81.0
+offset_bottom = 38.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_con2f")
+theme_override_colors/font_color = Color(0.26382825, 0.7776351, 1, 1)
 text = "play"
 
 [node name="QuitButton" type="Button" parent="." unique_id=949413423]
@@ -49,11 +58,13 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -80.0
-offset_top = -65.0
+offset_top = 49.0
 offset_right = 81.0
-offset_bottom = -11.0
+offset_bottom = 103.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_con2f")
+theme_override_colors/font_color = Color(0.83182627, 0.92545474, 0.53430355, 1)
 text = "quit"
 
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]

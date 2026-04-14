@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="gp-roguelite"
-run/main_scene="uid://dpyxvmge25iiw"
+run/main_scene="uid://btbdn5g57r3u5"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 

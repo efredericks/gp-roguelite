@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://dgcfhrperixa1"]
+
+[ext_resource type="FontFile" uid="uid://dpxm1psfip7o1" path="res://assets/fonts/fonts/poco/Poco.ttf" id="1_lbl2b"]
+
+[resource]
+default_font = ExtResource("1_lbl2b")
+default_font_size = 36

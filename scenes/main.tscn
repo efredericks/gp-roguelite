@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://xeimak4yjnks" path="res://assets/sprites/kenney_1bit_pack/colored-transparent_packed.png" id="9_85g3d"]
 [ext_resource type="Script" uid="uid://tqo0vire5fdf" path="res://scripts/minimap.gd" id="9_choun"]
 [ext_resource type="Script" uid="uid://jv8w1lk2noj3" path="res://scripts/player_health_ui.gd" id="9_eb6dy"]
+[ext_resource type="FontFile" uid="uid://dpxm1psfip7o1" path="res://assets/fonts/fonts/poco/Poco.ttf" id="9_trceg"]
 [ext_resource type="Texture2D" uid="uid://biy8f4amxegg5" path="res://assets/player_heart.tres" id="10_trceg"]
 [ext_resource type="AudioStream" uid="uid://cihymk0555uom" path="res://assets/audio/Music.mp3" id="13_trceg"]
 
@@ -16,7 +17,8 @@
 bg_color = Color(0.16206557, 0.1620656, 0.16206548, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ya4ey"]
-font_size = 24
+font = ExtResource("9_trceg")
+font_size = 48
 font_color = Color(3.657937e-06, 0.9220609, 0.9317952, 1)
 shadow_size = 5
 shadow_color = Color(0.5803922, 0.015686275, 0.5411765, 0.57254905)
@@ -112,13 +114,13 @@ texture = ExtResource("10_trceg")
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 121.00001
+offset_top = 97.0
 offset_bottom = 155.0
 grow_horizontal = 2
 text = "Level: 1"
 label_settings = SubResource("LabelSettings_ya4ey")
 horizontal_alignment = 1
-vertical_alignment = 1
+vertical_alignment = 3
 autowrap_mode = 1
 
 [node name="Line2D" type="Line2D" parent="CanvasLayer/BorderLeft" unique_id=1550225169]
