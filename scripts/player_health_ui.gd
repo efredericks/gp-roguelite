@@ -23,4 +23,3 @@ func _update_ui(currHP: int, maxHP: int) -> void:
 			heart_icons[idx].texture = full_heart
 		else:
 			heart_icons[idx].texture = empty_heart
-

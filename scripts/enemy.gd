@@ -27,8 +27,11 @@ var last_shoot_time: float
 @onready var sprite: Sprite2D = $Sprite
 @onready var avoidance_ray: RayCast2D = $AvoidanceRay
 
+@export_category("Various")
 @export var drop_chance: float = 0.2
 @export var hp_pot: PackedScene
+@export var is_boss: bool = false
+@export var heart_pot: PackedScene
 
 var last_attack_time: float
 var room: Room
@@ -101,10 +104,15 @@ func die():
 	# await $DamagedSound.finished # wait for final sound 
 	GlobalSignals.OnDefeatEnemy.emit(self)
 	
-	if randf() < drop_chance:
-		var item = hp_pot.instantiate()
+	if is_boss:
+		var item = heart_pot.instantiate()
 		get_tree().get_root().add_child.call_deferred(item)
 		item.global_position = global_position
+	else:
+		if randf() < drop_chance:
+			var item = hp_pot.instantiate()
+			get_tree().get_root().add_child.call_deferred(item)
+			item.global_position = global_position
 
 	queue_free()
 

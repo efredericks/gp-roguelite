@@ -1,7 +1,7 @@
 extends Area2D
 
 enum ItemType {
-	HEALTH, SHOOT_RATE, MOVE_SPEED
+	HEALTH, SHOOT_RATE, MOVE_SPEED, HP_UPGRADE
 }
 
 @export var item_type: ItemType
@@ -32,7 +32,11 @@ func _on_body_entered(body: Node2D) -> void:
 		body.shoot_rate -= item_value
 	elif item_type == ItemType.MOVE_SPEED:
 		body.move_speed += item_value
-
+	elif item_type == ItemType.HP_UPGRADE:
+		GameState.player_max_hp += 1
+		if GameState.player_max_hp > 8: GameState.player_max_hp = 8
+		body.maxHP = GameState.player_max_hp
+		body.heal(0) # heal for 0 to update sidebar
 
 	if clear_item:
 		body.get_node("ItemSound").play()

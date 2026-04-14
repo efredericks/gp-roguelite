@@ -13,7 +13,6 @@ func _ready() -> void:
 func _on_player_enter_room(room: Room):
 	if not room_gen:
 		room_gen = get_node("/root/main/RoomGeneration")
-
 		for child in get_children():
 			if child is TextureRect:
 				icons.append(child)
