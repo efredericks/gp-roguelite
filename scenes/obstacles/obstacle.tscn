@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://py77xffwbs5n" path="res://scripts/obstacle.gd" id="1_fmab6"]
 [ext_resource type="Texture2D" uid="uid://xeimak4yjnks" path="res://assets/sprites/kenney_1bit_pack/colored-transparent_packed.png" id="1_hof70"]
+[ext_resource type="Script" uid="uid://6rkxuhq64pab" path="res://scripts/random_tree_sprite.gd" id="3_ssuum"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fmab6"]
 size = Vector2(14, 14)
@@ -14,6 +15,7 @@ script = ExtResource("1_fmab6")
 texture = ExtResource("1_hof70")
 region_enabled = true
 region_rect = Rect2(273, 273, 14, 14)
+script = ExtResource("3_ssuum")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=47752433]
 shape = SubResource("RectangleShape2D_fmab6")
