@@ -29,10 +29,10 @@ func _ready() -> void:
 	level_text.text = "Level %d" % GameState.current_level
 	_generate()
 	
-	player.currHP = GameState.player_base_hp
-	player.maxHP = GameState.player_base_hp
-	GameState.player_hp = GameState.player_base_hp
-	GameState.player_max_hp = GameState.player_base_hp
+	#player.currHP = GameState.player_base_hp
+	#player.maxHP = GameState.player_base_hp
+	#GameState.player_hp = GameState.player_base_hp
+	#GameState.player_max_hp = GameState.player_base_hp
 
 	# debug
 	# for x in range(map_size):

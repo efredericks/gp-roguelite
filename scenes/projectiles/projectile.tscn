@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://58ofkuft0qtp" path="res://scripts/projectile.gd" id="1_q3m7n"]
 [ext_resource type="Texture2D" uid="uid://xeimak4yjnks" path="res://assets/sprites/kenney_1bit_pack/colored-transparent_packed.png" id="2_softn"]
+[ext_resource type="Texture2D" uid="uid://wjb0xjrckv7s" path="res://assets/light_texture.tres" id="3_l3el7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sugp2"]
 radius = 3.0
@@ -23,6 +24,10 @@ shape = SubResource("CircleShape2D_sugp2")
 wait_time = 3.0
 one_shot = true
 autostart = true
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=858931248]
+color = Color(0.8189561, 0.80582637, 0, 1)
+texture = ExtResource("3_l3el7")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
