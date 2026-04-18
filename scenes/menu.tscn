@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://de6nsgpmxbceb" path="res://scripts/menu.gd" id="1_yqeox"]
 [ext_resource type="FontFile" uid="uid://cellm35opdosb" path="res://assets/fonts/fonts/connection/Connection.otf" id="2_vjb58"]
 [ext_resource type="Theme" uid="uid://dgcfhrperixa1" path="res://assets/button_theme.tres" id="3_con2f"]
+[ext_resource type="PackedScene" uid="uid://dhiji6x0cdnb4" path="res://scenes/bg_music.tscn" id="4_mhnvy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4h3mk"]
 font = ExtResource("2_vjb58")
@@ -66,6 +67,8 @@ grow_vertical = 2
 theme = ExtResource("3_con2f")
 theme_override_colors/font_color = Color(0.83182627, 0.92545474, 0.53430355, 1)
 text = "quit"
+
+[node name="BGMusic" parent="." unique_id=1848842333 instance=ExtResource("4_mhnvy")]
 
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]

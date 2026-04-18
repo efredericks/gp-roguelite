@@ -160,6 +160,7 @@ func _shoot(dir = null) -> void:
 			proj.owner_character = self
 			proj.global_position = muzzle.global_position
 			proj.rotation_degrees = rad_to_deg(d.angle()) + 45
+			proj.get_node("PointLight2D").color = Color(0.794, 0.0, 0.0, 1.0)
 			proj.add_to_group("enemy")
 	elif shoot_pattern == ShootPattern.CROSS:
 		var dirs: Array[Vector2] = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, -1), Vector2(0, 1)]
@@ -170,6 +171,7 @@ func _shoot(dir = null) -> void:
 			proj.owner_character = self
 			proj.global_position = muzzle.global_position
 			proj.rotation_degrees = rad_to_deg(d.angle()) + 90
+			proj.get_node("PointLight2D").color = Color(0.794, 0.0, 0.0, 0.4)
 			proj.add_to_group("enemy")
 		
 

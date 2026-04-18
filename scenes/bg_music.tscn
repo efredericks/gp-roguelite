@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dhiji6x0cdnb4"]
+
+[ext_resource type="Script" uid="uid://ct0e5u22sj02j" path="res://scripts/bg_music.gd" id="2_188bi"]
+
+[node name="BGMusic" type="AudioStreamPlayer" unique_id=1848842333]
+volume_db = -20.0
+autoplay = true
+script = ExtResource("2_188bi")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
