@@ -4,6 +4,22 @@
 [ext_resource type="FontFile" uid="uid://cellm35opdosb" path="res://assets/fonts/fonts/connection/Connection.otf" id="2_vjb58"]
 [ext_resource type="Theme" uid="uid://dgcfhrperixa1" path="res://assets/button_theme.tres" id="3_con2f"]
 [ext_resource type="PackedScene" uid="uid://dhiji6x0cdnb4" path="res://scenes/bg_music.tscn" id="4_mhnvy"]
+[ext_resource type="Shader" uid="uid://bl4vx52vw2thl" path="res://scripts/bg.gdshader" id="5_4ytvr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g3eks"]
+shader = ExtResource("5_4ytvr")
+shader_parameter/speed = 2.0
+shader_parameter/scale = 3.0
+shader_parameter/color_a = Color(0.61529356, 0.45555437, 0.78384143, 1)
+shader_parameter/color_b = Color(0, 0.05, 0.2, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4ytvr"]
+font = ExtResource("2_vjb58")
+font_size = 96
+font_color = Color(0, 0, 0, 1)
+shadow_size = 10
+shadow_color = Color(0.5019608, 0.49803922, 0.72156864, 0.6509804)
+shadow_offset = Vector2(-2, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_4h3mk"]
 font = ExtResource("2_vjb58")
@@ -21,6 +37,28 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yqeox")
+
+[node name="BGShader" type="ColorRect" parent="." unique_id=244248881]
+material = SubResource("ShaderMaterial_g3eks")
+layout_mode = 0
+offset_left = -23.0
+offset_top = 21.0
+offset_right = 1128.0
+offset_bottom = 671.0
+
+[node name="title2" type="Label" parent="." unique_id=653372373]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -3.0
+offset_top = 123.0
+offset_right = -3.0
+offset_bottom = 220.0
+grow_horizontal = 2
+text = "GP Roguelite"
+label_settings = SubResource("LabelSettings_4ytvr")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="title" type="Label" parent="." unique_id=1586519623]
 layout_mode = 1
