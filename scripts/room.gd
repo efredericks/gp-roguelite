@@ -13,6 +13,7 @@ enum Direction { NORTH, SOUTH, EAST, WEST }
 @onready var entrance_west: RoomEntrance = $Entrance_West
 
 @onready var obstacle: PackedScene = preload("res://scenes/obstacles/obstacle.tscn")
+@onready var obstacle_pain: PackedScene = preload("res://scenes/obstacles/obstacle_pain.tscn")
 @onready var enemy_bullet_x: PackedScene = preload("res://scenes/enemies/enemy_bullet_x.tscn")
 @onready var enemy_bullet_plus: PackedScene = preload("res://scenes/enemies/enemy_bullet_plus.tscn")
 @onready var enemy: PackedScene = preload("res://scenes/enemies/enemy.tscn")
@@ -32,11 +33,14 @@ func _ready() -> void:
 		for x in range(num_cells):
 			for y in range(num_cells):
 				var ch = " "
-
+				var r = randf()
 				# leave a border
 				if x > 0 and x < num_cells-1 and y > 0 and y < num_cells-1:
-					if (randf() > 0.7):
+					if (r > 0.8):
 						ch = "#"
+					elif (r > 0.7):
+						ch = "f"
+						
 				room_grid.append(ch)
 
 		var num_enemies = randi_range(0, max_pcg_enemies)
@@ -58,6 +62,10 @@ func _ready() -> void:
 				var _y: int = (y * tile_size) - half_map_size + (tile_size / 2)
 				if room_grid[x + y * num_cells] == "#":
 					var o = obstacle.instantiate()
+					o.global_position = Vector2(_x, _y)
+					add_child(o)
+				elif room_grid[x + y * num_cells] == "f":
+					var o = obstacle_pain.instantiate()
 					o.global_position = Vector2(_x, _y)
 					add_child(o)
 				elif room_grid[x + y * num_cells] == "e":

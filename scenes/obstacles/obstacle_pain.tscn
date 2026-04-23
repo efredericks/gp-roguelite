@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://pd0kqwijtalc"]
+
+[ext_resource type="Script" uid="uid://bcbaqeh8briqo" path="res://scripts/obstacle_pain.gd" id="1_6pjvb"]
+[ext_resource type="Texture2D" uid="uid://wjb0xjrckv7s" path="res://assets/light_texture.tres" id="2_1v84j"]
+[ext_resource type="Texture2D" uid="uid://xeimak4yjnks" path="res://assets/sprites/kenney_1bit_pack/colored-transparent_packed.png" id="2_vifjp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6pjvb"]
+size = Vector2(6, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fmab6"]
+size = Vector2(8, 12)
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=998318137 groups=["enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=368447162]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_6pjvb")
+
+[node name="obstacle_pain" type="Area2D" parent="." unique_id=1815062728 node_paths=PackedStringArray("point_light") groups=["enemy"]]
+collision_layer = 4
+collision_mask = 10
+script = ExtResource("1_6pjvb")
+destructible = true
+light = true
+point_light = NodePath("PointLight2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="obstacle_pain" unique_id=873543700]
+texture = ExtResource("2_vifjp")
+offset = Vector2(0, -5.5)
+region_enabled = true
+region_rect = Rect2(244, 162, 8, 13)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="obstacle_pain" unique_id=47752433]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_fmab6")
+
+[node name="PointLight2D" type="PointLight2D" parent="obstacle_pain" unique_id=566709633]
+position = Vector2(0, -5.5)
+color = Color(0.9999996, 0.3442655, 0.16824758, 1)
+texture = ExtResource("2_1v84j")
+texture_scale = 2.0
+
+[connection signal="body_entered" from="obstacle_pain" to="obstacle_pain" method="_on_body_entered"]
