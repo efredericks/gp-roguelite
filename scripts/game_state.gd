@@ -40,7 +40,11 @@ func _process(delta: float) -> void:
 			
 	# quit game
 	if Input.is_action_just_pressed("quit"):
-		get_tree().quit()
+		var sn = get_tree().current_scene.name
+		if sn == "menu":
+			get_tree().quit()
+		else:
+			get_tree().change_scene_to_file("res://scenes/menu.tscn")
 		
 # reset all global data (also called when dead)
 func reset_data() -> void:
