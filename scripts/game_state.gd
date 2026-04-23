@@ -13,7 +13,9 @@ var debug_invincible: bool = false
 var restart_hold_time: float = 0.0
 var restart_hold_duration: float = 2.0  # seconds to hold
 
+# global inputs that aren't movement/shooting
 func _process(delta: float) -> void:
+	# debug
 	if Input.is_action_just_pressed("invincible"):
 		debug_invincible = not debug_invincible
 		GlobalSignals.OnDebug.emit.call_deferred() # modulate player
@@ -27,9 +29,19 @@ func _process(delta: float) -> void:
 			_restart()
 	else:
 		restart_hold_time = 0.0
-		GlobalSignals.OnResetHold.emit.call_deferred(0.0)
+		GlobalSignals.OnResetHold.emit.call_deferred(0.0) # reset alpha  
 
-
+	# toggle fullscreen
+	if Input.is_action_just_pressed("toggle_fullscreen"):
+		if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			
+	# quit game
+	if Input.is_action_just_pressed("quit"):
+		get_tree().quit()
+		
 # reset all global data (also called when dead)
 func reset_data() -> void:
 	current_level = 1
