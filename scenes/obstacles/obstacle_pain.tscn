@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bcbaqeh8briqo" path="res://scripts/obstacle_pain.gd" id="1_6pjvb"]
 [ext_resource type="Texture2D" uid="uid://wjb0xjrckv7s" path="res://assets/light_texture.tres" id="2_1v84j"]
+[ext_resource type="PackedScene" uid="uid://chncfjnuy4svo" path="res://scenes/items/item_health.tscn" id="2_oef18"]
 [ext_resource type="Texture2D" uid="uid://xeimak4yjnks" path="res://assets/sprites/kenney_1bit_pack/colored-transparent_packed.png" id="2_vifjp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6pjvb"]
@@ -23,6 +24,7 @@ script = ExtResource("1_6pjvb")
 destructible = true
 light = true
 point_light = NodePath("PointLight2D")
+hp_pot = ExtResource("2_oef18")
 
 [node name="Sprite2D" type="Sprite2D" parent="obstacle_pain" unique_id=873543700]
 texture = ExtResource("2_vifjp")

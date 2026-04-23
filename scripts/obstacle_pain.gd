@@ -11,8 +11,13 @@ class_name ObstaclePain extends Area2D
 @export var min_energy: float = 0.5
 @export var max_energy: float = 1.5
 
+@export_category("Stats")
 @export var currHP: int = 3
 @export var maxHP: int = 3
+
+@export_category("Drop")
+@export var drop_chance: float = 0.2
+@export var hp_pot: PackedScene
 
 var time: float = 0.0
 var offset: float
@@ -57,7 +62,10 @@ func die():
 		#var item = hp_pot.instantiate()
 		#get_tree().get_root().add_child.call_deferred(item)
 		#item.global_position = global_position
-
+	if randf() < drop_chance:
+		var item = hp_pot.instantiate()
+		get_tree().get_root().add_child.call_deferred(item)
+		item.global_position = global_position
 	parent.queue_free()
 
 func _damage_flash():
