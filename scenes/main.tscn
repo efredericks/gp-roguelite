@@ -12,6 +12,8 @@
 [ext_resource type="FontFile" uid="uid://dpxm1psfip7o1" path="res://assets/fonts/fonts/poco/Poco.ttf" id="9_trceg"]
 [ext_resource type="Texture2D" uid="uid://biy8f4amxegg5" path="res://assets/player_heart.tres" id="10_trceg"]
 [ext_resource type="PackedScene" uid="uid://dhiji6x0cdnb4" path="res://scenes/bg_music.tscn" id="12_eb6dy"]
+[ext_resource type="Shader" uid="uid://bl4vx52vw2thl" path="res://scripts/bg.gdshader" id="12_trceg"]
+[ext_resource type="Script" uid="uid://007vpv1hsffm" path="res://scripts/reset_bg_shader.gd" id="13_a8y0u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tipki"]
 bg_color = Color(0.16206557, 0.1620656, 0.16206548, 1)
@@ -30,6 +32,14 @@ colors = PackedColorArray(1, 0, 1, 0.61960787, 0.21176471, 0.79607844, 0.8470588
 [sub_resource type="AtlasTexture" id="AtlasTexture_choun"]
 atlas = ExtResource("9_85g3d")
 region = Rect2(625, 241, 14, 14)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a8y0u"]
+shader = ExtResource("12_trceg")
+shader_parameter/speed = 2.0
+shader_parameter/scale = 3.0
+shader_parameter/color_a = Color(0.61529356, 0.45555437, 0.78384143, 1)
+shader_parameter/color_b = Color(0, 0.05, 0.2, 1)
+shader_parameter/alpha = 1.0
 
 [node name="main" type="Node2D" unique_id=254109296]
 texture_filter = 1
@@ -355,5 +365,12 @@ texture = SubResource("AtlasTexture_choun")
 [node name="RoomIcon49" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=2042340450]
 layout_mode = 2
 texture = SubResource("AtlasTexture_choun")
+
+[node name="ResetBGShader" type="ColorRect" parent="CanvasLayer" unique_id=1365396763]
+material = SubResource("ShaderMaterial_a8y0u")
+offset_top = 2.0
+offset_right = 1150.0
+offset_bottom = 652.0
+script = ExtResource("13_a8y0u")
 
 [node name="BGMusic" parent="." unique_id=1848842333 instance=ExtResource("12_eb6dy")]

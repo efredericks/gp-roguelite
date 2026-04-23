@@ -47,8 +47,16 @@ var program: Array[String]
 var program_counter: int
 var wait_timer: int
 
+# move these to genome file
 var OP_CODES: Array[String] = [
 	"WAIT_20", "AIM", "FIRE_ONE", "RADIAL_4", "WAIT_40", "RADIAL_8", "FIRE_ALL"
+]
+var template_programs: Array[Array] = [
+	["WAIT_20", "AIM", "WAIT_20", "FIRE_ONE"],  # aim only
+	["WAIT_20", "RADIAL_4", "FIRE_ALL", "WAIT_40"], # 4 only
+	["WAIT_20", "RADIAL_8", "FIRE_ALL", "WAIT_40"], # 8 only
+	["WAIT_20", "RADIAL_4", "FIRE_ALL", "WAIT_40",  # 4 & 8
+	 "WAIT_20", "RADIAL_8", "FIRE_ALL", "WAIT_40"], 
 ]
 
 func _ready() -> void:
@@ -67,9 +75,13 @@ func initialize(in_room: Room):
 	program_counter = 0
 	wait_timer = 0
 	
+	# enemy program
 	for r in range(randi_range(1, 20)):
-		var op = OP_CODES[randi_range(0, len(OP_CODES)-1)]
-		program.append(op)
+		#var op = OP_CODES[randi_range(0, len(OP_CODES)-1)]
+		var prog = template_programs[randi_range(0, len(template_programs)-1)]
+		for p in prog:
+			program.append(p)
+		#program.append(op)
 
 # activate when player enters
 func _on_player_enter_room(player_room: Room):

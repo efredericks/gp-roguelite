@@ -39,8 +39,6 @@ func _ready() -> void:
 						ch = "#"
 				room_grid.append(ch)
 
-
-
 		var num_enemies = randi_range(0, max_pcg_enemies)
 		for e in range(num_enemies):
 			var timeout = 100

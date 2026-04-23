@@ -4,7 +4,7 @@ uniform float speed : hint_range(0.1, 5.0) = 2.0;
 uniform float scale : hint_range(0.1, 10.0) = 3.0;
 uniform vec4 color_a : source_color = vec4(0.1, 0.3, 0.8, 1.0);
 uniform vec4 color_b : source_color = vec4(0.0, 0.05, 0.2, 1.0);
-
+uniform float alpha = 1.0;
 vec2 hash(vec2 p) {
     p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
     return -1.0 + 2.0 * fract(sin(p) * 43758.5453123);
@@ -53,4 +53,5 @@ void fragment() {
     float dithered = step(threshold, n);
 
     COLOR = mix(color_a, color_b, dithered);
+	COLOR.a *= alpha;
 }
