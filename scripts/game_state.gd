@@ -27,6 +27,8 @@ func _process(delta: float) -> void:
 			_restart()
 	else:
 		restart_hold_time = 0.0
+		GlobalSignals.OnResetHold.emit.call_deferred(0.0)
+
 
 # reset all global data (also called when dead)
 func reset_data() -> void:
