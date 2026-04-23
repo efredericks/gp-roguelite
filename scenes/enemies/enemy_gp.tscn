@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bjh4vkkvloeej"]
+
+[ext_resource type="PackedScene" uid="uid://b37onasdp1ora" path="res://scenes/enemies/enemy.tscn" id="1_mw5ax"]
+
+[node name="enemy" unique_id=1570522543 instance=ExtResource("1_mw5ax")]
+currHP = null
+maxHP = null
+attack_damage = null
+attack_range = null
+attack_rate = null
+is_shooter = null
+shoot_pattern = null
+shoot_rate = null
+drop_chance = null
+is_boss = null

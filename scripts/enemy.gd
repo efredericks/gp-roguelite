@@ -1,7 +1,7 @@
 class_name Enemy extends CharacterBody2D
 
 enum ShootPattern {
-	TARGET, CROSS, X
+	TARGET, CROSS, X, ALG,
 }
 @export var currHP: int = 4
 @export var maxHP: int = 4
@@ -41,21 +41,44 @@ var player: CharacterBody2D
 var player_dir: Vector2
 var player_dist: float
 
+# program-based execution
+var projectile_stack: Array[float]
+var program: Array[String]
+var program_counter: int
+var wait_timer: int
+
+var OP_CODES: Array[String] = [
+	"WAIT_20", "AIM", "FIRE_ONE", "RADIAL_4", "WAIT_40", "RADIAL_8", "FIRE_ALL"
+]
+
 func _ready() -> void:
+	
+	#program = ["WAIT_20", "AIM", "FIRE_ONE", "WAIT_20", "RADIAL_4", "FIRE_ONE", "FIRE_ONE", "FIRE_ONE", "FIRE_ONE", "WAIT_40", "RADIAL_8", "FIRE_ALL"]
+	
 	player = get_tree().get_first_node_in_group("Player")
 	GlobalSignals.OnPlayerEnterRoom.connect(_on_player_enter_room)
 
 func initialize(in_room: Room):
 	is_active = false
 	room = in_room
+	
+	projectile_stack = []
+	program = []
+	program_counter = 0
+	wait_timer = 0
+	
+	for r in range(randi_range(1, 20)):
+		var op = OP_CODES[randi_range(0, len(OP_CODES)-1)]
+		program.append(op)
 
 # activate when player enters
 func _on_player_enter_room(player_room: Room):
 	is_active = player_room == room
 
 func _process(_delta: float) -> void:
-	if Time.get_unix_time_from_system() - last_shoot_time > shoot_rate and is_shooter and is_active:
-		_shoot()
+	""" old attacking """
+	#if Time.get_unix_time_from_system() - last_shoot_time > shoot_rate and is_shooter and is_active:
+		#_shoot()
 			
 	_move_wobble()
 
@@ -67,10 +90,14 @@ func _physics_process(delta: float) -> void:
 
 	sprite.flip_h = player_dir.x < 0
 
+	_step_program()
+	
+	""" old attacking
 	if player_dist < attack_range:
 		_try_attack()
 		return
-		
+	"""
+	
 	var local_avoidance = _local_avoidance()
 	if local_avoidance.length() > 0:
 		player_dir = local_avoidance
@@ -84,6 +111,54 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	# if is_active:
 
+func _step_program() -> void:
+	if wait_timer > 0:
+		wait_timer -= 1
+		return
+		
+	# wrap execution
+	if program_counter > len(program) - 1:
+		program_counter = 0
+		
+	match program[program_counter]:
+		"AIM":
+			#if player_dist < attack_range:
+			var dir = player.global_position - global_position
+			projectile_stack.push_back(dir.angle() + PI/2.)
+			program_counter += 1
+		"WAIT_20":
+			wait_timer = 20
+			program_counter += 1
+		"WAIT_40":
+			wait_timer = 40
+			program_counter += 1
+		"RADIAL_4":
+			for i in range(4):
+				projectile_stack.push_back((float(i) / 4.0) * TAU)
+			program_counter += 1
+		"RADIAL_8":
+			for i in range(8):
+				projectile_stack.push_back((float(i) / 8.0) * TAU)
+			program_counter += 1
+		"RADIAL_16":
+			for i in range(16):
+				projectile_stack.push_back((float(i) / 16.0) * TAU)
+			program_counter += 1
+		
+		"FIRE_ONE":
+			if len(projectile_stack) > 0: 
+				_shoot_angle(projectile_stack.pop_back())
+			program_counter += 1
+		"FIRE_ALL":
+			var angles = projectile_stack.duplicate()
+			projectile_stack.clear()
+			for angle in angles:
+				_shoot_angle(angle)
+			program_counter += 1
+			
+		_:  # unknown
+			program_counter += 1
+			
 
 func _try_attack():
 	if Time.get_unix_time_from_system() - last_attack_time < attack_rate:
@@ -147,7 +222,16 @@ func _local_avoidance() -> Vector2:
 	var obstacle_dir = global_position.direction_to(obstacle_point)
 	return Vector2(-obstacle_dir.y, obstacle_dir.x) # return adjacent 
 
-
+func _shoot_angle(angle: float) -> void:
+	# instantiate projectile
+		var proj = projectile_scene.instantiate()
+		get_tree().get_root().add_child.call_deferred(proj)
+		proj.owner_character = self
+		proj.global_position = muzzle.global_position
+		proj.rotation_degrees = rad_to_deg(angle)# Vector2.RIGHT.rotated(angle)
+		proj.get_node("PointLight2D").color = Color(0.794, 0.0, 0.0, 1.0)
+		proj.add_to_group("enemy")
+	
 func _shoot(dir = null) -> void:
 	last_shoot_time = Time.get_unix_time_from_system()
 

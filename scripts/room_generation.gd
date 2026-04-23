@@ -127,22 +127,50 @@ func _instantiate_rooms() -> void:
 			room.set_neighbor.call_deferred(Room.Direction.SOUTH, get_room_from_map(x, y + 1))
 		if x < map_size - 1 and _get_map(x + 1, y):
 			room.set_neighbor.call_deferred(Room.Direction.EAST, get_room_from_map(x + 1, y))
-		if y > 0 and _get_map(x - 1, y):
+		if x > 0 and _get_map(x - 1, y):
+		#if y > 0 and _get_map(x - 1, y):
 			room.set_neighbor.call_deferred(Room.Direction.WEST, get_room_from_map(x - 1, y))
 
 	first_room.player_enter.call_deferred(Room.Direction.NORTH, player, true)
 
+# distance based
 func _decide_boss_room() -> Vector2:
-	var i = 0
-	while i < 100:
-		var x = randi_range(0, map_size - 1)
-		var y = randi_range(0, map_size - 1)
+	var candidates: Array[Vector2] = []
+	var farthest_pos := Vector2(first_room_x, first_room_y)
+	var max_dist := 0.0
 
-		if first_room_x == x and first_room_y == y:
-			continue
-		if _get_map(x, y):
-			return Vector2(x, y)
-	return Vector2.ZERO
+	for x in range(map_size):
+		for y in range(map_size):
+			if not _get_map(x, y):
+				continue
+			if x == first_room_x and y == first_room_y:
+				continue
+			
+			var dist = abs(x - first_room_x) + abs(y - first_room_y)  # manhattan distance
+			#if dist > max_dist:
+				#max_dist = dist
+				#farthest_pos = Vector2(x, y)
+			if dist > max_dist:
+				max_dist = dist
+				candidates = [Vector2(x, y)]
+			elif dist == max_dist:
+				candidates.append(Vector2(x, y))
+
+	return candidates[randi_range(0, candidates.size() - 1)]
+	#return farthest_pos
+# old
+#func _decide_boss_room() -> Vector2:
+	##var i = 0
+	##while i < 100:
+	#for i in range(100):
+		#var x = randi_range(0, map_size - 1)
+		#var y = randi_range(0, map_size - 1)
+#
+		#if first_room_x == x and first_room_y == y:
+			#continue
+		#if _get_map(x, y):
+			#return Vector2(x, y)
+	#return Vector2.ZERO
 
 # map helper functions
 func get_room_from_map(x: int, y: int) -> Room:

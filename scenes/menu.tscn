@@ -41,10 +41,9 @@ script = ExtResource("1_yqeox")
 [node name="BGShader" type="ColorRect" parent="." unique_id=244248881]
 material = SubResource("ShaderMaterial_g3eks")
 layout_mode = 0
-offset_left = -23.0
-offset_top = 21.0
-offset_right = 1128.0
-offset_bottom = 671.0
+offset_top = 2.0
+offset_right = 1150.0
+offset_bottom = 652.0
 
 [node name="title2" type="Label" parent="." unique_id=653372373]
 layout_mode = 1

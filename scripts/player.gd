@@ -23,6 +23,7 @@ var projectile_scene: PackedScene = preload("res://scenes/projectiles/projectile
 
 func _ready() -> void:
 	GlobalSignals.OnPlayerUpdateHealth.emit.call_deferred(currHP, maxHP)
+	GlobalSignals.OnDebug.connect(_on_debug)
 
 func _process(delta: float) -> void:
 	# aim towards mouse
@@ -70,14 +71,15 @@ func _physics_process(delta):
 	#move_and_slide()
 
 func take_damage(amount: int) -> void:
-	_damage_flash()
-	$DamagedSound.play()
+	if not GameState.debug_invincible:
+		_damage_flash()
+		$DamagedSound.play()
 
-	currHP -= amount
-	GlobalSignals.OnPlayerUpdateHealth.emit(currHP, maxHP)
-	GameState.player_hp = currHP # update global state
-	if currHP <= 0:
-		die() 
+		currHP -= amount
+		GlobalSignals.OnPlayerUpdateHealth.emit(currHP, maxHP)
+		GameState.player_hp = currHP # update global state
+		if currHP <= 0:
+			die() 
 
 func die() -> void:
 	# await $DamagedSound.finished # wait for final sound 
@@ -123,3 +125,9 @@ func _move_wobble():
 	var t = Time.get_unix_time_from_system()
 	var rot = 2 * sin(20 * t)
 	sprite.rotation_degrees = rot
+	
+func _on_debug() -> void:
+	if GameState.debug_invincible:
+		modulate = Color.RED
+	else:
+		modulate = Color.WHITE
