@@ -136,7 +136,7 @@ func _instantiate_rooms() -> void:
 # distance based
 func _decide_boss_room() -> Vector2:
 	var candidates: Array[Vector2] = []
-	var farthest_pos := Vector2(first_room_x, first_room_y)
+	#var farthest_pos := Vector2(first_room_x, first_room_y)
 	var max_dist := 0.0
 
 	for x in range(map_size):

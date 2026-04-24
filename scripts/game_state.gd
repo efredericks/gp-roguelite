@@ -15,6 +15,8 @@ var restart_hold_duration: float = 2.0  # seconds to hold
 
 # global inputs that aren't movement/shooting
 func _process(delta: float) -> void:
+	var sn = get_tree().current_scene.name
+	
 	# debug
 	if Input.is_action_just_pressed("invincible"):
 		debug_invincible = not debug_invincible
@@ -37,10 +39,17 @@ func _process(delta: float) -> void:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-			
+	
+	# new game, but only on main screen
+	if sn == "menu" and Input.is_action_just_pressed("new_game"):
+		new_game()
+	
+	# quit game with Q on main menu
+	if sn == "menu" and Input.is_action_just_pressed("quit_menu"):
+		get_tree().quit()
+		
 	# quit game
 	if Input.is_action_just_pressed("quit"):
-		var sn = get_tree().current_scene.name
 		if sn == "menu":
 			get_tree().quit()
 		else:
@@ -56,3 +65,7 @@ func reset_data() -> void:
 func _restart() -> void:
 	reset_data()
 	get_tree().reload_current_scene()
+	
+func new_game() -> void:
+	GameState.reset_data()
+	get_tree().change_scene_to_file("res://scenes/main.tscn")

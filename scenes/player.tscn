@@ -8,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://wjb0xjrckv7s" path="res://assets/light_texture.tres" id="6_tuyoq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o5qli"]
+radius = 4.0
+height = 10.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tuyoq"]
 radius = 5.0
 height = 12.0
 
@@ -52,3 +56,18 @@ stream = ExtResource("5_qlg0r")
 color = Color(1, 0.9882353, 0.54901963, 0.56078434)
 texture = ExtResource("6_tuyoq")
 texture_scale = 2.87
+
+[node name="Area2D" type="Area2D" parent="." unique_id=980973706]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=372989198]
+shape = SubResource("CapsuleShape2D_tuyoq")
+
+[node name="HitTimer" type="Timer" parent="." unique_id=1995071067]
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]

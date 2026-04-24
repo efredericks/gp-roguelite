@@ -12,6 +12,7 @@ shader_parameter/speed = 2.0
 shader_parameter/scale = 3.0
 shader_parameter/color_a = Color(0.61529356, 0.45555437, 0.78384143, 1)
 shader_parameter/color_b = Color(0, 0.05, 0.2, 1)
+shader_parameter/alpha = 1.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_4ytvr"]
 font = ExtResource("2_vjb58")
@@ -86,7 +87,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_con2f")
 theme_override_colors/font_color = Color(0.26382825, 0.7776351, 1, 1)
-text = "play"
+text = "[p]lay"
 
 [node name="QuitButton" type="Button" parent="." unique_id=949413423]
 layout_mode = 1
@@ -103,7 +104,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_con2f")
 theme_override_colors/font_color = Color(0.83182627, 0.92545474, 0.53430355, 1)
-text = "quit"
+text = "[q]uit"
 
 [node name="BGMusic" parent="." unique_id=1848842333 instance=ExtResource("4_mhnvy")]
 

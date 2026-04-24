@@ -93,7 +93,7 @@ func _ready() -> void:
 			enemies_in_room += 1
 			child.initialize(self)
 
-
+# called from room_generation - good point to include the genome being passed in...
 func initialize() -> void:
 	open_doors.call_deferred()
 	# pass

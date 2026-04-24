@@ -4,10 +4,13 @@ extends CharacterBody2D
 @onready var sprite: Sprite2D = $playerSprite
 @onready var weapon_origin: Node2D = $weapon
 @onready var muzzle: Node2D = $weapon/muzzle
+@onready var hit_timer: Timer = $HitTimer
+@onready var hit_box: Area2D = $Area2D
 
 @export_category("Stats")
 @export var currHP: int = GameState.player_hp
 @export var maxHP: int = GameState.player_max_hp
+@export var bump_damage: int = 1
 
 @export_category("Movement")
 @export var max_speed: float = 100.0
@@ -62,7 +65,7 @@ func _physics_process(delta):
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, braking)
 	move_and_slide()
-	 
+	
 	sprite.flip_h = move_input.x > 0
 #func _physics_process(_delta: float) -> void:
 	#var move_input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -83,7 +86,7 @@ func take_damage(amount: int) -> void:
 
 func die() -> void:
 	# await $DamagedSound.finished # wait for final sound 
-	get_tree().change_scene_to_file("res://scenes/menu.tscn")
+	get_tree().change_scene_to_file.call_deferred("res://scenes/menu.tscn")
 
 # returns false if no need for healing
 func heal(amount: int) -> bool:
@@ -131,3 +134,20 @@ func _on_debug() -> void:
 		modulate = Color.RED
 	else:
 		modulate = Color.WHITE
+
+# enemy walking into player or player sitting on fire (both body and area)
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	# enemy group bullet
+	if body.is_in_group("enemy"):
+		take_damage(bump_damage)
+		hit_timer.start()
+		
+# done hitting! (both body and area)
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body.is_in_group("enemy"):
+		if hit_box.get_overlapping_bodies().filter(func(b): return b.is_in_group("enemy")).is_empty():
+			hit_timer.stop()
+
+# continuous hit every second
+func _on_hit_timer_timeout():
+	take_damage(bump_damage) # This keeps running every second as long as the timer is active

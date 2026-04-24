@@ -82,7 +82,7 @@ func initialize(in_room: Room):
 		for p in prog:
 			program.append(p)
 		#program.append(op)
-
+	#program = ['WAIT_20']
 # activate when player enters
 func _on_player_enter_room(player_room: Room):
 	is_active = player_room == room

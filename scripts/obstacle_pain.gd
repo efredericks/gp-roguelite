@@ -40,12 +40,12 @@ func _move_wobble():
 
 func _on_body_entered(body: Node2D) -> void:
 	#if body == owner_character: return  # self bullet
-	
+	pass
 	# enemy group bullet
-	if body.is_in_group("enemy") and is_in_group("enemy"): return
-
-	if body.has_method("take_damage"):
-		body.take_damage(1)
+	#if body.is_in_group("enemy") and is_in_group("enemy"): return
+#
+	#if body.has_method("take_damage"):
+		#body.take_damage(1)
 		
 func take_damage(damage: int):
 	#$DamagedSound.play()
