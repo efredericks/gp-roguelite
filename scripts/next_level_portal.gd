@@ -23,13 +23,14 @@ func _on_defeat_enemy(enemy: Enemy):
 
 
 func _on_body_entered(body: Node2D) -> void:
-	print("i'm ready")
 	if not body.is_in_group("Player"): return
 
 	GameState.max_rooms_to_generate += 5
 	if GameState.max_rooms_to_generate > 49: GameState.max_rooms_to_generate = 49
 	
 	GameState.current_level += 1
+	GameState.rooms_visited.append([])
+	
 	#get_tree().reload_current_scene.call_deferred()
 	#get_tree().change_scene_to_packed.call_deferred(next_level)
 	get_tree().change_scene_to_file.call_deferred("res://scenes/main.tscn")

@@ -19,18 +19,19 @@ enum Direction { NORTH, SOUTH, EAST, WEST }
 @onready var enemy: PackedScene = preload("res://scenes/enemies/enemy.tscn")
 
 var enemies_in_room: int
+var special_tag: String = "normal room" # boss room, first room
 
 # cell slots (mirrored in RoomGenome)
 var num_cells: int = 14 
 var room_grid: Array[String] = []
 var tile_size: int = 16
-
+var room_id: Vector2i = Vector2i(-1, -1)
 
 #############################################################
 const POP_SIZE = 50
 const GENERATIONS = 150
 var best_genome: RoomGenome = null
-var difficulty = 0.5
+var difficulty = 0.0
 	
 
 #func _evolve() -> RoomGenome:
@@ -127,6 +128,11 @@ func _spawn_room(genome: RoomGenome) -> void:
 				enemy_idx += 1
 				add_child(e)
 				e.initialize(self)
+				
+				# scale enemy based on program length
+				var e_scale = clamp(len(e.program) / 5.0, 0.25, 1.15)
+				e.scale = Vector2(e_scale, e_scale)
+				
 				enemies_in_room += 1
 				break
 			timeout -= 1
@@ -143,14 +149,18 @@ func _ready() -> void:
 	GlobalSignals.OnDefeatEnemy.connect(_on_enemy_defeated)
 
 	if GameState.is_evolver:
-		best_genome = _evolve()   # comment this out to freeze
-		# best_genome = _load_saved_genome()  # load a saved one instead
-		_spawn_room(best_genome)
-		difficulty = best_genome.estimate_difficulty()
+		if special_tag == "normal room":
+			best_genome = _evolve()   # comment this out to freeze
+			# best_genome = _load_saved_genome()  # load a saved one instead
+			_spawn_room(best_genome)
+			difficulty = best_genome.estimate_difficulty()
+		else:
+			for child in get_children(): # handle boss or other special rooms with enemies
+				if child is Enemy:
+					enemies_in_room += 1
+					child.initialize(self)
+			
 	else:
-		####
-		# move this stuff over to room_generation!!
-		
 		# place things
 		if is_pcg_room:
 			for x in range(num_cells):
@@ -320,6 +330,8 @@ func player_enter(entry_direction: Direction, player: CharacterBody2D, first_roo
 	# emit that player entered the room
 	GlobalSignals.OnPlayerEnterRoom.emit(self)
 
+	player.setRoom(self)
+
 	# handle doors if enemies present/cleared
 	if enemies_in_room > 0 and not doors_always_open:
 		close_doors()
@@ -348,3 +360,9 @@ func _on_enemy_defeated(enemy: Enemy):
 		if enemies_in_room <= 0:
 			open_doors()
 			$RoomEnterSound.play()
+
+func setRoomID(id: Vector2i) -> void:
+	room_id = id
+	
+func getRoomID() -> Vector2i:
+	return room_id

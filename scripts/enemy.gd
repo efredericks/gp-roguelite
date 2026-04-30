@@ -198,12 +198,14 @@ func die():
 		var item = heart_pot.instantiate()
 		get_tree().get_root().add_child.call_deferred(item)
 		item.global_position = global_position
+		
+		GameState.bosses_killed += 1
 	else:
 		if randf() < drop_chance:
 			var item = hp_pot.instantiate()
 			get_tree().get_root().add_child.call_deferred(item)
 			item.global_position = global_position
-
+		GameState.enemies_killed += 1
 	queue_free()
 
 func _damage_flash():

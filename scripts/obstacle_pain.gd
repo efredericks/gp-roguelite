@@ -56,6 +56,7 @@ func take_damage(damage: int):
 		die()
 
 func die():
+	GameState.obstacles_killed += 1
 	# await $DamagedSound.finished # wait for final sound 
 	#GlobalSignals.OnDefeatObstacle.emit(self)
 	#if randf() < drop_chance:

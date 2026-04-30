@@ -101,8 +101,10 @@ func _instantiate_rooms() -> void:
 
 			if is_first_room:
 				room = room_scene.instantiate()
+				room.special_tag = "first room"
 			elif x == boss_room_pos.x and y == boss_room_pos.y:
 				room = boss_room.instantiate()
+				room.special_tag = "boss room"
 			else:
 				room = room_scenes[randi_range(0, len(room_scenes)-1)].instantiate()
 
@@ -110,6 +112,8 @@ func _instantiate_rooms() -> void:
 			rooms.append(room)
 
 			room.global_position = Vector2(x, y) * room_position_offset
+			# for ID purposes
+			room.setRoomID(Vector2i(x, y))
 
 			if is_first_room:
 				first_room = room
@@ -175,6 +179,12 @@ func _decide_boss_room() -> Vector2:
 	#return Vector2.ZERO
 
 # map helper functions
+func get_room_by_id(id: Vector2i) -> Room:
+	for room in rooms:
+		if id.x == room.room_id.x and id.y == room.room_id.y:
+			return room
+	return null
+	
 func get_room_from_map(x: int, y: int) -> Room:
 	for room in rooms:
 		var pos = _get_map_index(room)

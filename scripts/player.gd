@@ -23,11 +23,12 @@ var last_shoot_time: float
 var move_input: Vector2
 
 var projectile_scene: PackedScene = preload("res://scenes/projectiles/projectile.tscn")
+var in_room: Room # room player is currently in
 
 func _ready() -> void:
 	GlobalSignals.OnPlayerUpdateHealth.emit.call_deferred(currHP, maxHP)
 	GlobalSignals.OnDebug.connect(_on_debug)
-
+	
 func _process(delta: float) -> void:
 	# aim towards mouse
 	var mouse_pos: Vector2 = get_global_mouse_position()
@@ -81,10 +82,16 @@ func take_damage(amount: int) -> void:
 		currHP -= amount
 		GlobalSignals.OnPlayerUpdateHealth.emit(currHP, maxHP)
 		GameState.player_hp = currHP # update global state
+		GameState.hits_taken += 1
 		if currHP <= 0:
 			die() 
 
 func die() -> void:
+	# print out run stats
+	GameState.killed_at_difficulty = in_room.difficulty
+	GameState.total_run_time = Time.get_unix_time_from_system() - GameState.game_start_time
+	GameState.write_run_stats()
+	
 	# await $DamagedSound.finished # wait for final sound 
 	get_tree().change_scene_to_file.call_deferred("res://scenes/menu.tscn")
 
@@ -151,3 +158,18 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 # continuous hit every second
 func _on_hit_timer_timeout():
 	take_damage(bump_damage) # This keeps running every second as long as the timer is active
+
+func setRoom(room: Room) -> void:
+	in_room = room
+	#addVisited(room)
+
+# NOTE - THIS NEEDS TO ADD A DICTIONARY AS ROOMS ARE FREED!
+# player visits a room for the first time
+func addVisited(room: Room) -> void:
+	var new_room: bool = true
+	for _room in GameState.rooms_visited[GameState.current_level-1]:
+		if room == _room:
+			new_room = false
+			break
+	if new_room:
+		GameState.rooms_visited[GameState.current_level-1].append(room)

@@ -28,12 +28,14 @@ func _on_body_entered(body: Node2D) -> void:
 
 	if item_type == ItemType.HEALTH:
 		clear_item = body.heal(int(item_value))
+		GameState.hp_pots_used += 1
 	elif item_type == ItemType.SHOOT_RATE:
 		body.shoot_rate -= item_value
 	elif item_type == ItemType.MOVE_SPEED:
 		body.move_speed += item_value
 	elif item_type == ItemType.HP_UPGRADE:
 		GameState.player_max_hp += 1
+		GameState.hp_upgrades += 1
 		if GameState.player_max_hp > 8: GameState.player_max_hp = 8
 		body.maxHP = GameState.player_max_hp
 		body.heal(0) # heal for 0 to update sidebar

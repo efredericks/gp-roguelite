@@ -14,9 +14,39 @@ var is_evolver: bool = false
 var restart_hold_time: float = 0.0
 var restart_hold_duration: float = 2.0  # seconds to hold
 
+# run stats
+var enemies_killed: int = 0
+var bosses_killed: int = 0
+var obstacles_killed: int = 0
+var hits_taken: int = 0
+var hp_pots_used: int = 0
+var hp_upgrades: int = 0
+var bullets_avoided: int = 0
+var total_run_time: float = 0.0
+var game_start_time: float = 0.0
+var found_difficulties: Array = []
+var killed_at_difficulty: float = 0.0
+var rooms_visited: Array # one array per dungeon
+
+func write_run_stats() -> void:
+	print("---------------------------")
+	print("Total run time: %.3f" % total_run_time)
+	print("Enemies killed: %d" % enemies_killed)
+	print("Bosses killed: %d" % bosses_killed)
+	print("Obstacles killed: %d" % obstacles_killed)
+	print("Hits taken: %d" % hits_taken)
+	print("HP pots used: %d" % hp_pots_used)
+	print("HP updgrades: %d" % hp_upgrades)
+	#bullets avoided tbd
+	print("Min difficulty: %.3f | Max difficulty: %.3f | Average difficulty: %.3f" % [0.0, 0.0, 0.0])
+	
+	#for room in rooms_visited[0]:  # need to manually track
+		#print(room.room_id)
+	print("---------------------------")
+	
+	
 # global inputs that aren't movement/shooting
 func _process(delta: float) -> void:
-	
 	# debug
 	if Input.is_action_just_pressed("invincible"):
 		debug_invincible = not debug_invincible
@@ -68,6 +98,17 @@ func reset_data() -> void:
 	player_hp = GameState.player_base_hp
 	player_max_hp = GameState.player_base_hp
 	
+	enemies_killed = 0
+	bosses_killed = 0
+	obstacles_killed = 0
+	hp_upgrades = 0
+	hits_taken = 0
+	hp_pots_used = 0
+	total_run_time = 0.0
+	bullets_avoided = 0
+	rooms_visited = [[]] # list of lists with first level pre-populated
+
+	
 func _restart() -> void:
 	reset_data()
 	get_tree().reload_current_scene()
@@ -75,4 +116,5 @@ func _restart() -> void:
 func new_game(evolver: bool = false) -> void:
 	GameState.reset_data()
 	GameState.is_evolver = evolver
+	game_start_time = Time.get_unix_time_from_system()
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
