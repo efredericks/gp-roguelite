@@ -9,13 +9,13 @@ var player_hp: int = player_base_hp
 var player_max_hp: int = player_base_hp
 
 var debug_invincible: bool = false
+var is_evolver: bool = false
 
 var restart_hold_time: float = 0.0
 var restart_hold_duration: float = 2.0  # seconds to hold
 
 # global inputs that aren't movement/shooting
 func _process(delta: float) -> void:
-	var sn = get_tree().current_scene.name
 	
 	# debug
 	if Input.is_action_just_pressed("invincible"):
@@ -41,16 +41,22 @@ func _process(delta: float) -> void:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	
 	# new game, but only on main screen
-	if sn == "menu" and Input.is_action_just_pressed("new_game"):
-		new_game()
+	if Input.is_action_just_pressed("new_game"):
+		if get_tree().current_scene.name == "menu":
+			new_game(false)
+	# new game, but only on main screen
+	if Input.is_action_just_pressed("new_game_evolver"):
+		if get_tree().current_scene.name == "menu":
+			new_game(true)
 	
 	# quit game with Q on main menu
-	if sn == "menu" and Input.is_action_just_pressed("quit_menu"):
-		get_tree().quit()
+	if Input.is_action_just_pressed("quit_menu"):
+		if get_tree().current_scene.name == "menu":
+			get_tree().quit()
 		
 	# quit game
 	if Input.is_action_just_pressed("quit"):
-		if sn == "menu":
+		if get_tree().current_scene.name == "menu":
 			get_tree().quit()
 		else:
 			get_tree().change_scene_to_file("res://scenes/menu.tscn")
@@ -66,6 +72,7 @@ func _restart() -> void:
 	reset_data()
 	get_tree().reload_current_scene()
 	
-func new_game() -> void:
+func new_game(evolver: bool = false) -> void:
 	GameState.reset_data()
+	GameState.is_evolver = evolver
 	get_tree().change_scene_to_file("res://scenes/main.tscn")

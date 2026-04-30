@@ -43,7 +43,7 @@ var player_dist: float
 
 # program-based execution
 var projectile_stack: Array[float]
-var program: Array[String]
+var program: Array#Array[String]
 var program_counter: int
 var wait_timer: int
 
@@ -81,10 +81,13 @@ func initialize(in_room: Room):
 		var prog = template_programs[randi_range(0, len(template_programs)-1)]
 		for p in prog:
 			program.append(p)
+			
 		#program.append(op)
 	#program = ['WAIT_20']
+	
 # activate when player enters
 func _on_player_enter_room(player_room: Room):
+	await get_tree().create_timer(0.5).timeout  # slight delay
 	is_active = player_room == room
 
 func _process(_delta: float) -> void:

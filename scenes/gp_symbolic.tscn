@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://drntu0l8ktus0"]
 
-[ext_resource type="Script" uid="uid://vxbketab8xcl" path="res://scripts/gp/gp_symbolic.gd" id="1_4uxea"]
+[ext_resource type="Script" uid="uid://vxbketab8xcl" path="res://scripts/testing-gp/gp_symbolic.gd" id="1_4uxea"]
 
 [node name="GpSymbolic" type="Node" unique_id=717156249]
 script = ExtResource("1_4uxea")

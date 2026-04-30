@@ -12,6 +12,7 @@
 [ext_resource type="FontFile" uid="uid://dpxm1psfip7o1" path="res://assets/fonts/fonts/poco/Poco.ttf" id="9_trceg"]
 [ext_resource type="Texture2D" uid="uid://biy8f4amxegg5" path="res://assets/player_heart.tres" id="10_trceg"]
 [ext_resource type="PackedScene" uid="uid://dhiji6x0cdnb4" path="res://scenes/bg_music.tscn" id="12_eb6dy"]
+[ext_resource type="LabelSettings" uid="uid://d4dgwcxjtqua6" path="res://assets/side_label.tres" id="12_jkv2x"]
 [ext_resource type="Shader" uid="uid://bl4vx52vw2thl" path="res://scripts/bg.gdshader" id="12_trceg"]
 [ext_resource type="Script" uid="uid://007vpv1hsffm" path="res://scripts/reset_bg_shader.gd" id="13_a8y0u"]
 
@@ -365,6 +366,16 @@ texture = SubResource("AtlasTexture_choun")
 [node name="RoomIcon49" type="TextureRect" parent="CanvasLayer/BorderRight/minimap" unique_id=2042340450]
 layout_mode = 2
 texture = SubResource("AtlasTexture_choun")
+
+[node name="DifficultyLabel" type="Label" parent="CanvasLayer/BorderRight" unique_id=840889547]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 18.0
+offset_right = 219.0
+offset_bottom = 52.0
+text = "Difficulty: 0.01"
+label_settings = ExtResource("12_jkv2x")
+horizontal_alignment = 1
 
 [node name="ResetBGShader" type="ColorRect" parent="CanvasLayer" unique_id=1365396763]
 material = SubResource("ShaderMaterial_a8y0u")

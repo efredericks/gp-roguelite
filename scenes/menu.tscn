@@ -87,7 +87,24 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_con2f")
 theme_override_colors/font_color = Color(0.26382825, 0.7776351, 1, 1)
-text = "[p]lay"
+text = "[n]ormal"
+
+[node name="PlayButtonEvolver" type="Button" parent="." unique_id=376216375]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = 51.0
+offset_right = 81.0
+offset_bottom = 105.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_con2f")
+theme_override_colors/font_color = Color(0.26382825, 0.7776351, 1, 1)
+text = "[e]volver"
 
 [node name="QuitButton" type="Button" parent="." unique_id=949413423]
 layout_mode = 1
@@ -97,9 +114,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -80.0
-offset_top = 49.0
+offset_top = 118.0
 offset_right = 81.0
-offset_bottom = 103.0
+offset_bottom = 172.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_con2f")
@@ -109,4 +126,5 @@ text = "[q]uit"
 [node name="BGMusic" parent="." unique_id=1848842333 instance=ExtResource("4_mhnvy")]
 
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="PlayButtonEvolver" to="." method="_on_play_button_evolver_pressed"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]

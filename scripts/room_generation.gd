@@ -113,7 +113,9 @@ func _instantiate_rooms() -> void:
 
 			if is_first_room:
 				first_room = room
-			room.initialize()
+				
+			var rg = RoomGenome.new()
+			room.initialize.call_deferred(rg)
 	
 	for room in rooms:
 		var map_pos: Vector2 = _get_map_index(room)
